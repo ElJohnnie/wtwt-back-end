@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --files --no-notify src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --files --no-notify src/main.ts",
     "start": "node dist/index.js",
     "build": "tsc",
     "test": "jest --watchAll --collectCoverage"
@@ -16,7 +16,8 @@
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "multer": "^1.4.5-lts.1",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "zod": "^3.23.8"
   },
   "repository": {
     "type": "git",
