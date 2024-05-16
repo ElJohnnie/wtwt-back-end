@@ -1,4 +1,3 @@
-// src/adapters/controllers/movieController.ts
 import { Request, Response } from "express";
 import { MovieService } from "../../usecases/movieService";
 import { Movie } from "../../domain/movie";
