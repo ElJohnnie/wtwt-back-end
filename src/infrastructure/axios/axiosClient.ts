@@ -5,7 +5,7 @@ export class AxiosClient {
 
     static getInstance(): AxiosInstance {
         if (!AxiosClient.instance) {
-            const token = process.env.TMDB_API_TOKEN; // Lendo o token da variável de ambiente
+            const token = process.env.TMDB_API_TOKEN;
 
             if (!token) {
                 throw new Error("Token da API TMDB não fornecido. Defina a variável de ambiente TMDB_API_TOKEN.");
@@ -15,7 +15,7 @@ export class AxiosClient {
                 baseURL: 'https://api.themoviedb.org/3',
                 headers: {
                     accept: 'application/json',
-                    Authorization: `Bearer ${token}` // Usando o token da variável de ambiente
+                    Authorization: `Bearer ${token}`
                 }
             });
         }
