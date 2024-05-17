@@ -1,7 +1,7 @@
 import express from "express";
 import { MovieController } from "../../../adapters/controllers/movieController";
 import { MovieApiServiceMock } from "../../../adapters/external-services/movieApiServiceMock";
-import { MovieServiceImpl } from "../../../usecases/movieServiceImp";
+import { MovieServiceImpl } from "../../../usecases/movieServiceMLImp";
 
 const router = express.Router();
 const movieApiService = new MovieApiServiceMock()

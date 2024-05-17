@@ -1,4 +1,4 @@
-import app from "./infra/express/server";
+import app from "./infrastructure/express/server";
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,6 +1,6 @@
 import { Movie } from "../domain/movie";
 import { ProcessedMovie } from "../domain/movie";
-import { MovieService } from "./movieService";
+import { MovieService } from "./movieServiceML";
 import { MovieApiService } from "../adapters/external-services/movieApiService";
 
 export class MovieServiceImpl implements MovieService {
