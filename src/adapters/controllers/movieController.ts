@@ -1,14 +1,20 @@
 import { Request, Response } from "express";
 import { MovieService } from "../../usecases/movieService";
-import { Movie } from "../../domain/movie";
+import { MovieSchema, Movie } from "../../domain/movie";
 
 export class MovieController {
     constructor(private movieService: MovieService) {}
 
-    async recommendMovies(req: Request, res: Response): Promise<void> {
+    async recommendMovies(req: Request, res: Response): Promise<any> {
         try {
-            const movieData: Movie = req.body;
-            const recommendedMovies = await this.movieService.getRecommendedMovies(movieData);
+            const parsedData = MovieSchema.safeParse(req.query);
+
+            if (!parsedData.success) {
+                return res.status(400).json({ error: "Dados inválidos", details: parsedData.error.errors });
+            }
+
+            const data = req.query as unknown as Movie;
+            const recommendedMovies = await this.movieService.getRecommendedMovies(data);
             res.json(recommendedMovies);
         } catch (error) {
             console.error("Erro ao processar requisição:", error);
