@@ -25,9 +25,10 @@ export class MovieController {
             }
 
             const firstRecommendedMovie = recommendedMovies[0];
+
             const detailedFirstMovie = await this.movieByTitleService.getMoviesByTitle({
                 query: firstRecommendedMovie.title,
-                include_adult: true,
+                include_adult: false,
                 language: 'pt-br',
                 primary_release_year: null,
                 page: 1,
