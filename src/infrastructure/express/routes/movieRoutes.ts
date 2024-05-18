@@ -7,14 +7,14 @@ import { MovieByTitleServiceImpl } from "../../../usecases/movieByTitleServiceIm
 
 const router = express.Router();
 
-const movieApiService = new MovieApiServiceMock()
-const movieMLService = new MovieServiceImpl(movieApiService);
-
-const externalTMDBAPIService = new TMDBApiExternalService();
-const tmdbAPIService = new MovieByTitleServiceImpl(externalTMDBAPIService);
-
-const movieController = new MovieController(movieMLService, tmdbAPIService);
-
-router.get("/", movieController.recommendMovies.bind(movieController));
+router.get("/", (req, res) => {
+    const movieApiService = new MovieApiServiceMock();
+    const movieMLService = new MovieServiceImpl(movieApiService);
+    const externalTMDBAPIService = new TMDBApiExternalService();
+    const tmdbAPIService = new MovieByTitleServiceImpl(externalTMDBAPIService);
+    const movieController = new MovieController(movieMLService, tmdbAPIService);
+    
+    movieController.recommendMovies(req, res);
+});
 
 export default router;
