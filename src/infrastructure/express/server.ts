@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import movieRoutes from "./routes/movieRoutes";
-import dotenv from 'dotenv';
 import corsConfig from './config/corsConfig';
+import checkAuthorizationCode from './middlwares/checkAuthorizationCode';
 
-dotenv.config();
 const app = express();
 
 app.use(cors(corsConfig));
+
+app.use(checkAuthorizationCode);
 
 app.use("/movies", movieRoutes);
 
