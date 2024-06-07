@@ -1,6 +1,6 @@
 import express from "express";
 import { MovieController } from "../../../adapters/controllers/movieController";
-import { MovieApiServiceImp } from "../../../adapters/external-services/movieApiServiceImp";
+import { MovieApiServiceImp } from "../../../adapters/external-services/mlApiService";
 import { TMDBApiExternalService } from "../../../adapters/external-services/tmdbService";
 import { MovieServiceImpl } from "../../../usecases/movieServiceMLImp";
 import { MovieByTitleServiceImpl } from "../../../usecases/movieByTitleServiceImp";
