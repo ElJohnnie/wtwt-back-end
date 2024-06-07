@@ -12,35 +12,24 @@ export class MovieController {
 
     async recommendMovies(req: Request, res: Response): Promise<any> {
         try {
+
             const parsedData = MovieSchema.safeParse(req.query);
             if (!parsedData.success) {
                 return res.status(400).json({ error: "Dados inválidos", details: parsedData.error.errors });
             }
-            console.log(parsedData)
 
             const data = req.query as unknown as Movie;
-
             const recommendedMovies = await this.movieService.getRecommendedMovies(data);
-
-            console.log(recommendedMovies)
             if (recommendedMovies.length === 0) {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
             }
 
+            // trocar para um algoritmo de aleatoriedade
             const firstRecommendedMovie = recommendedMovies[0];
-
-
-            // parei aqui tentando sanitizar o titulo para a api
+            const movie = sanitizeTitle(firstRecommendedMovie.title);
             const detailedFirstMovie = await this.movieByTitleService.getMoviesByTitle({
-                query: sanitizeTitle(firstRecommendedMovie.title),
-                include_adult: false,
-                language: 'pt-br',
-                primary_release_year: null,
-                page: 1,
-                region: null,
-                year: null,
+                query: movie,
             });
-
             res.json({ recommendedMovie: firstRecommendedMovie, detailedMovie: detailedFirstMovie });
         } catch (error) {
             res.status(error.response.status).json(

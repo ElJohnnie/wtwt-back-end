@@ -12,12 +12,12 @@ export class TMDBApiExternalService {
 
     async getMoviesByTitle(params: {
         query: string;
-        include_adult: boolean;
-        language: string;
-        primary_release_year: string;
-        page: number;
-        region: string;
-        year: string;
+        include_adult?: boolean;
+        language?: string;
+        primary_release_year?: string;
+        page?: number;
+        region?: string;
+        year?: string;
     }): Promise<TmdbResultDTO> {
         const response = await this.axiosInstance.get<TmdbResultDTO>('/search/movie', {
             params: {
@@ -30,7 +30,7 @@ export class TMDBApiExternalService {
                 year: params.year
             }
         });
-
+console.log('estou aqui')
         return response.data;
     }
 }
