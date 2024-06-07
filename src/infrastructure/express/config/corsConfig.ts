@@ -1,7 +1,9 @@
+import { enviroment } from "./dotEnvConfig";
+
 export default {
     origin: function (origin, callback) {
         const allowedOrigins = [
-            `${process.env.CLIENT_HOST}:${process.env.CLIENT_PORT}`
+            `${enviroment.CLIENT_HOST}:${enviroment.CLIENT_PORT}`
         ];
         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
             callback(null, true);

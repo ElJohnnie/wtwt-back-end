@@ -10,12 +10,12 @@ const checkAuthorizationCode = (req: Request, res: Response, next: NextFunction)
   }
 
   const token = authHeader.split(' ')[1];
-  console.log(token, AUTHORIZATION_TOKEN)
+
   if (token !== AUTHORIZATION_TOKEN) {
     return res.status(401).send('Unauthorized: Invalid token');
   }
 
-  console.log(`${req.method} ${req.path}`);
+
   next();
 };
 

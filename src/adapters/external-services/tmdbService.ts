@@ -1,12 +1,13 @@
 import { AxiosInstance } from 'axios';
 import { TmdbResultDTO } from './dtos/tmdb-dto';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
+import { enviroment } from '../../infrastructure/express/config/dotEnvConfig';
 
 export class TMDBApiExternalService {
     private axiosInstance: AxiosInstance;
 
     constructor() {
-        this.axiosInstance = AxiosClient.getInstance();
+        this.axiosInstance = AxiosClient.getInstance(enviroment.TMDB_API_URL);
     }
 
     async getMoviesByTitle(params: {

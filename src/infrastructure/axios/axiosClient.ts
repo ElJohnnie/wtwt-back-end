@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 export class AxiosClient {
     private static instance: AxiosInstance;
 
-    static getInstance(): AxiosInstance {
+    static getInstance(apiBaseUrl: string): AxiosInstance {
         if (!AxiosClient.instance) {
             const token = process.env.TMDB_API_TOKEN;
 
@@ -12,7 +12,7 @@ export class AxiosClient {
             }
 
             AxiosClient.instance = axios.create({
-                baseURL: 'https://api.themoviedb.org/3',
+                baseURL: apiBaseUrl,
                 headers: {
                     accept: 'application/json',
                     Authorization: `Bearer ${token}`
