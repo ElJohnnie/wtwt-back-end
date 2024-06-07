@@ -30,7 +30,6 @@ export class TMDBApiExternalService {
                 year: params.year
             }
         });
-console.log('estou aqui')
         return response.data;
     }
 }
