@@ -1,7 +1,7 @@
 import { ProcessedMovie, Movie } from "../../domain/movie";
 import { MovieApiService } from "./movieApiService";
 import { AxiosInstance } from 'axios';
-import { PredictionResponseDTO } from './dtos/tmdb-dto';
+import { PredictionResponseDTO } from "./dtos/mlApi-dto";
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 import { enviroment } from "../../infrastructure/express/config/dotEnvConfig";
 
