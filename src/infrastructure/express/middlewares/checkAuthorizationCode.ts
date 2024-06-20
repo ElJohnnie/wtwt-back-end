@@ -1,7 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { enviroment } from '../config/dotEnvConfig';
-
-const AUTHORIZATION_TOKEN = enviroment.AUTHORIZATION_TOKEN;
 
 const checkAuthorizationCode = (req: Request, res: Response, next: NextFunction): void | Response => {
   const authHeader = req.headers.authorization;
@@ -11,7 +8,7 @@ const checkAuthorizationCode = (req: Request, res: Response, next: NextFunction)
 
   const token = authHeader.split(' ')[1];
 
-  if (token !== AUTHORIZATION_TOKEN) {
+  if (token !== process.env.AUTHORIZATION_TOKEN) {
     return res.status(401).send('Unauthorized: Invalid token');
   }
 

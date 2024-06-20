@@ -32,13 +32,13 @@ export class MovieController {
             });
             res.json({ recommendedMovie: firstRecommendedMovie, detailedMovie: detailedFirstMovie });
         } catch (error) {
-            res.status(error.response.status).json(
-                {
-                    status:error.response.status,
-                    error: error.response.statusText,
-                    message: error.message
-                }
-            );
+            let status = error.response ? error.response.status : 500;
+            let errorResponse = {
+                status: status,
+                error: error.response ? error.response.statusText : 'Internal Server Error',
+                message: error.message
+            };
+            res.status(status).json(errorResponse);
         }
     }
 }

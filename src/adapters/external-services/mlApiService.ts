@@ -3,13 +3,12 @@ import { MovieApiService } from "./movieApiService";
 import { AxiosInstance } from 'axios';
 import { PredictionResponseDTO } from "./dtos/mlApi-dto";
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
-import { enviroment } from "../../infrastructure/express/config/dotEnvConfig";
 
 export class MovieApiServiceImp implements MovieApiService {
     private axiosInstance: AxiosInstance;
 
     constructor() {
-        this.axiosInstance = AxiosClient.getInstance(enviroment.ML_API_URL);
+        this.axiosInstance = AxiosClient.getInstance(process.env.ML_API_URL);
     }
 
     async triggerML(params: Movie): Promise<ProcessedMovie[]> {
