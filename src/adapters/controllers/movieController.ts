@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { MovieService } from "../../usecases/movieServiceML";
 import { MovieByTitleService } from "../../usecases/movieByTitleService";
-import { MovieSchema, Movie } from "../../domain/movie";
+import { MovieSchema, Movie } from "../../domain/entities/movie";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
 
 export class MovieController {
@@ -32,8 +32,8 @@ export class MovieController {
             });
             res.json({ recommendedMovie: firstRecommendedMovie, detailedMovie: detailedFirstMovie });
         } catch (error) {
-            let status = error.response ? error.response.status : 500;
-            let errorResponse = {
+            const status = error.response ? error.response.status : 500;
+            const errorResponse = {
                 status: status,
                 error: error.response ? error.response.statusText : 'Internal Server Error',
                 message: error.message

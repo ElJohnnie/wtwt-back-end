@@ -1,4 +1,5 @@
-import { ProcessedMovie, Movie } from "../../domain/movie";
+import { Movie } from "../../domain/entities/movie";
+import { ProcessedMovie } from "../../domain/entities/processedMovie";
 import { MovieApiService } from "./movieApiService";
 import { AxiosInstance } from 'axios';
 import { PredictionResponseDTO } from "./dtos/mlApi-dto";

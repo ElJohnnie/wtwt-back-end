@@ -10,7 +10,4 @@ export const MovieSchema = z.object({
 });
 export type Movie = z.infer<typeof MovieSchema>;
 
-export interface ProcessedMovie {
-    title: string;
-    genres?: string[];
-}
+
