@@ -1,5 +1,4 @@
 import { Movie } from "../domain/entities/movie";
-import { ProcessedMovie } from "../domain/entities/processedMovie";
 import { MovieService } from "./movieServiceML";
 import { MovieApiService } from "../adapters/external-services/movieApiService";
 
@@ -8,7 +7,7 @@ export class MovieServiceImpl implements MovieService {
         private movieApiService: MovieApiService
     ) {}
 
-    async getRecommendedMovies(movieData: Movie): Promise<ProcessedMovie[]> {
+    async getRecommendedMovies(movieData: Movie) {
         console.log(movieData);
         const recommendedMovies = await this.movieApiService.triggerML(movieData);
         console.log(recommendedMovies);
@@ -16,7 +15,7 @@ export class MovieServiceImpl implements MovieService {
         return processedMovies;
     }
 
-    private processRecommendedMovies(recommendedMovies: ProcessedMovie[]): ProcessedMovie[] {
+    private processRecommendedMovies(recommendedMovies) {
         return recommendedMovies.map(movie => ({
             title: movie.title,
         }));

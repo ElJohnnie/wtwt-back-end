@@ -1,6 +1,6 @@
 import { Movie } from "../../domain/entities/movie";
-import { ProcessedMovie } from "../../domain/entities/processedMovie";
+import { MoviePredicted } from "./dtos/mlApi-dto";
 
 export interface MovieApiService {
-    triggerML(movieData: Movie): Promise<ProcessedMovie[]>;
+    triggerML(movieData: Movie): Promise<MoviePredicted[]>;
 }

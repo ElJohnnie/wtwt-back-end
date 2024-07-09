@@ -10,7 +10,7 @@ export class MovieController {
         private movieByTitleService: MovieByTitleService
     ) {}
 
-    async recommendMovies(req: Request, res: Response): Promise<any> {
+    async recommendMovies(req: Request, res: Response) {
         try {
 
             const parsedData = MovieSchema.safeParse(req.query);

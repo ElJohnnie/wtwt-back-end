@@ -1,6 +1,6 @@
 import { Movie } from "../domain/entities/movie";
-import { ProcessedMovie } from "../domain/entities/processedMovie";
+import { MoviePredicted } from "../adapters/external-services/dtos/mlApi-dto";
 
 export interface MovieService {
-    getRecommendedMovies(movieData: Movie): Promise<ProcessedMovie[]>;
+    getRecommendedMovies(movieData: Movie): Promise<MoviePredicted[]>;
 }
