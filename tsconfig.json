@@ -1,15 +1,10 @@
 {
     "compilerOptions": {
       "target": "ES2022",
-      "lib": [
-        "ES6"
-      ],
+      "lib": ["ES6"],
       "module": "CommonJS",
       "rootDir": "./src",
-      "typeRoots": [
-        "./node_modules/@types",
-        "./src/@types"
-      ],
+      "typeRoots": ["./node_modules/@types", "./src/@types"],
       "resolveJsonModule": true,
       "allowJs": true,
       "outDir": "./dist",
@@ -18,9 +13,16 @@
       "forceConsistentCasingInFileNames": true,
       "skipLibCheck": true
     },
+    "include": ["src/**/*.ts"],
     "exclude": [
       "node_modules",
       "dist",
-      "jest.config.ts"
+      "jest.config.ts",
+      "spec",
+      "coverage",
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      "eslint.config.mjs",
+      "jest.setup.ts"
     ]
   }
