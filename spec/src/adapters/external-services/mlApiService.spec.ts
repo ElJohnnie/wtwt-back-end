@@ -1,4 +1,3 @@
-// Arquivo: mlApiService.spec.ts
 
 import axios from 'axios';
 import { MovieApiServiceImp } from '../../../../src/adapters/external-services/mlApiService';
@@ -36,7 +35,7 @@ describe('MovieApiServiceImp', () => {
             ]
         };
 
-        mockedAxios.post.mockResolvedValueOnce(mockResponse);
+        mockedAxios.post.mockResolvedValueOnce({ data: mockResponse });
 
         const predictedMovies = await movieApiService.triggerML(movieParams);
 
@@ -44,7 +43,8 @@ describe('MovieApiServiceImp', () => {
         expect(mockedAxios.post).toHaveBeenCalledWith('/ml', {
             mood: movieParams.mood,
             primaryGenre: movieParams.primaryGenre,
-            secondaryGenre: movieParams.secondaryGenre
+            secondaryGenre: movieParams.secondaryGenre,
+            epoch: Number(movieParams.epoch)
         });
     });
 });
