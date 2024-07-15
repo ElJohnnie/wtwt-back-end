@@ -6,8 +6,8 @@ import { sanitizeTitle } from "../../utils/sanitizeTitle";
 
 export class MovieController {
     constructor(
-        private movieService: MovieService,
-        private movieByTitleService: MovieByTitleService
+        private _movieService: MovieService,
+        private _movieByTitleService: MovieByTitleService
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
@@ -19,7 +19,7 @@ export class MovieController {
             }
 
             const data = req.query as unknown as Movie;
-            const recommendedMovies = await this.movieService.getRecommendedMovies(data);
+            const recommendedMovies = await this._movieService.getRecommendedMovies(data);
             if (recommendedMovies.length === 0) {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
             }
@@ -27,7 +27,7 @@ export class MovieController {
             // trocar para um algoritmo de aleatoriedade
             const firstRecommendedMovie = recommendedMovies[0];
             const movie = sanitizeTitle(firstRecommendedMovie.title);
-            const detailedFirstMovie = await this.movieByTitleService.getMoviesByTitle({
+            const detailedFirstMovie = await this._movieByTitleService.getMoviesByTitle({
                 query: movie,
             });
             res.json({ recommendedMovie: firstRecommendedMovie, detailedMovie: detailedFirstMovie });
