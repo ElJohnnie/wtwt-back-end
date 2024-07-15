@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --files --no-notify src/main.ts",
     "start": "node dist/index.js",
     "build": "tsc",
-    "test": "jest --watchAll --collectCoverage --config jest.config.ts",
+    "test:unit": "jest --silent --collectCoverage --config jest.config.ts",
+    "test:unit:watch": "jest --watchAll --collectCoverage --config jest.config.ts",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "eslint '**/*.ts' --fix",
     "mock:ml": "json-server --watch mock.json --port 5050"
