@@ -29,6 +29,7 @@ export class MovieController {
             const movie = sanitizeTitle(firstRecommendedMovie.title);
             const detailedFirstMovie = await this._movieByTitleService.getMoviesByTitle({
                 query: movie,
+                language: 'pt-br'
             });
             res.json({ recommendedMovie: firstRecommendedMovie, detailedMovie: detailedFirstMovie });
         } catch (error) {
