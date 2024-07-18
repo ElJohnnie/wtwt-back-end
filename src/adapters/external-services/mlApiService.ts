@@ -1,20 +1,19 @@
-import { ProcessedMovie, Movie } from "../../domain/movie";
-import { MovieApiService } from "./movieApiService";
+import { Movie } from "../../domain/entities/movie";
+import { MovieApiService } from "./mlApiServiceInterface";
 import { AxiosInstance } from 'axios';
-import { PredictionResponseDTO } from "./dtos/mlApi-dto";
+import { PredictionResponseDTO, MoviePredicted } from "./dtos/mlApi-dto";
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
-import { enviroment } from "../../infrastructure/express/config/dotEnvConfig";
 
 export class MovieApiServiceImp implements MovieApiService {
-    private axiosInstance: AxiosInstance;
+    private _axiosInstance: AxiosInstance;
 
     constructor() {
-        this.axiosInstance = AxiosClient.getInstance(enviroment.ML_API_URL);
+        this._axiosInstance = AxiosClient.getInstance(process.env.ML_API_URL);
     }
 
-    async triggerML(params: Movie): Promise<ProcessedMovie[]> {
+    async triggerML(params: Movie): Promise<MoviePredicted[]> {
 
-        const response = await this.axiosInstance.post<PredictionResponseDTO>('/ml', {
+        const response = await this._axiosInstance.post<PredictionResponseDTO>('/ml', {
             mood: params.mood,
             primaryGenre: params.primaryGenre,
             secondaryGenre: params.secondaryGenre,

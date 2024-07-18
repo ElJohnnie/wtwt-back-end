@@ -1,13 +1,12 @@
 import { AxiosInstance } from 'axios';
-import { TmdbResultDTO } from './dtos/tmdb-dto';
+import { TmdbResponseDTO } from './dtos/tmdb-dto';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
-import { enviroment } from '../../infrastructure/express/config/dotEnvConfig';
 
 export class TMDBApiExternalService {
-    private axiosInstance: AxiosInstance;
+    private _axiosInstance: AxiosInstance;
 
     constructor() {
-        this.axiosInstance = AxiosClient.getInstance(enviroment.TMDB_API_URL);
+        this._axiosInstance = AxiosClient.getInstance(process.env.TMDB_API_URL);
     }
 
     async getMoviesByTitle(params: {
@@ -18,8 +17,8 @@ export class TMDBApiExternalService {
         page?: number;
         region?: string;
         year?: string;
-    }): Promise<TmdbResultDTO> {
-        const response = await this.axiosInstance.get<TmdbResultDTO>('/search/movie', {
+    }): Promise<TmdbResponseDTO> {
+        const response = await this._axiosInstance.get<TmdbResponseDTO>('/search/movie', {
             params: {
                 query: params.query,
                 include_adult: params.include_adult,

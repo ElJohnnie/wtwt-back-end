@@ -1,4 +1,4 @@
-import { TmdbResultDTO } from "../adapters/external-services/dtos/tmdb-dto";
+import { TmdbResponseDTO } from "../adapters/external-services/dtos/tmdb-dto";
 
 export interface MovieByTitleService {
     getMoviesByTitle(params: {
@@ -9,5 +9,5 @@ export interface MovieByTitleService {
         page?: number;
         region?: string;
         year?: string;
-    }): Promise<TmdbResultDTO>;
+    }): Promise<TmdbResponseDTO>;
 }

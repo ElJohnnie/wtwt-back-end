@@ -1,4 +1,4 @@
-import { TmdbResultDTO } from "../adapters/external-services/dtos/tmdb-dto";
+import { TmdbResponseDTO } from "../adapters/external-services/dtos/tmdb-dto";
 import { TMDBApiExternalService } from "../adapters/external-services/tmdbService";
 import { MovieByTitleService } from "./movieByTitleService";
 
@@ -13,7 +13,7 @@ export class MovieByTitleServiceImpl implements MovieByTitleService {
         page?: number;
         region?: string;
         year?: string;
-    }): Promise<TmdbResultDTO> {
+    }): Promise<TmdbResponseDTO> {
         return this.tmdbApiService.getMoviesByTitle(params);
     }
 }

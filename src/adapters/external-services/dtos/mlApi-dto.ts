@@ -1,9 +1,10 @@
 export interface PredictionResponseDTO {
     message: string;
-    data: MovieRecord[];
+    data: MoviePredicted[];
 }
 
-interface MovieRecord {
+export interface MoviePredicted {
     title: string;
     genres: string[];
 }
+
