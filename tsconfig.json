@@ -18,7 +18,7 @@
       "node_modules",
       "dist",
       "jest.config.ts",
-      "spec",
+      "tests",
       "coverage",
       "**/*.test.ts",
       "**/*.spec.ts",
