@@ -24,7 +24,6 @@ export class MovieController {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
             }
 
-            // trocar para um algoritmo de aleatoriedade
             const firstRecommendedMovie = recommendedMovies[0];
             const movie = sanitizeTitle(firstRecommendedMovie.title);
             const detailedFirstMovie = await this._movieByTitleService.getMoviesByTitle({
