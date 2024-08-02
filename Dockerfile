@@ -13,7 +13,7 @@ FROM node:18.20.3 AS production-stage
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/dist ./
 
 EXPOSE 5000
 
