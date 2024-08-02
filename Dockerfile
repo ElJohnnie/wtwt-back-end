@@ -1,15 +1,15 @@
-FROM node:18.20.3 as builder
+FROM node:18.20.3 AS builder
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npm build
+RUN npm run build
 
-FROM node:18.20.3 as production-stage
+FROM node:18.20.3 AS production-stage
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
