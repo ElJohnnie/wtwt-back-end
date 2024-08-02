@@ -8,8 +8,6 @@ services:
         working_dir: /app
         env_file:
         - docker.env
-        volumes:
-        - ./:/app
         expose:
         - 5000
         ports:
