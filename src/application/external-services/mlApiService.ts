@@ -1,7 +1,7 @@
 import { Movie } from "../../domain/entities/movie";
-import { MovieApiService } from "./mlApiServiceInterface";
+import { MovieApiService } from "../../interfaces/mlApiServiceInterface";
 import { AxiosInstance } from 'axios';
-import { PredictionResponseDTO, MoviePredicted } from "./dtos/mlApi-dto";
+import { PredictionResponseDTO, MoviePredicted } from "../../interfaces/dtos/mlApi-dto";
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 
 export class MovieApiServiceImp implements MovieApiService {

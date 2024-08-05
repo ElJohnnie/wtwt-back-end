@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { MovieService } from "../../usecases/movieServiceML";
-import { MovieByTitleService } from "../../usecases/movieByTitleService";
+import { MovieService } from "../../interfaces/movieServiceML";
+import { MovieByTitleService } from "../../interfaces/movieByTitleService";
 import { MovieSchema, Movie } from "../../domain/entities/movie";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
 

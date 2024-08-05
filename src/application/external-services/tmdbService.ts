@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { TmdbResponseDTO } from './dtos/tmdb-dto';
+import { TmdbResponseDTO } from '../../interfaces/dtos/tmdb-dto';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 
 export class TMDBApiExternalService {

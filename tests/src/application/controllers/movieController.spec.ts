@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
-import { MovieController } from '../../../../src/adapters/controllers/movieController';
+import { MovieController } from '../../../../src/application/controllers/movieController';
 import { sanitizeTitle } from '../../../../src/utils/sanitizeTitle';
-// import { TmdbResponseDTO } from '../../../src/domain/dtos/tmdbResponseDTO';
-import { TmdbResponseDTO } from '../../../../src/adapters/external-services/dtos/tmdb-dto';
+import { TmdbResponseDTO } from '../../../../src/interfaces/dtos/tmdb-dto';
 
-jest.mock('../../../../src/usecases/movieServiceML');
-jest.mock('../../../../src/usecases/movieByTitleService');
 jest.mock('../../../../src/utils/sanitizeTitle');
 
 const mockMovieService = {

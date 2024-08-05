@@ -1,6 +1,6 @@
-import { TmdbResponseDTO } from "../adapters/external-services/dtos/tmdb-dto";
-import { TMDBApiExternalService } from "../adapters/external-services/tmdbService";
-import { MovieByTitleService } from "./movieByTitleService";
+import { TmdbResponseDTO } from "../../interfaces/dtos/tmdb-dto";
+import { TMDBApiExternalService } from "../external-services/tmdbService";
+import { MovieByTitleService } from "../../interfaces/movieByTitleService";
 
 export class MovieByTitleServiceImpl implements MovieByTitleService {
     constructor(private tmdbApiService: TMDBApiExternalService) {}

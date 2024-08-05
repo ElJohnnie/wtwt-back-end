@@ -1,6 +1,6 @@
-import { MovieServiceImpl } from '../../../src/usecases/movieServiceMLImp';
-import { MovieApiService } from '../../../src/adapters/external-services/mlApiServiceInterface';
-import { Movie } from '../../../src/domain/entities/movie';
+import { Movie } from '../../../../src/domain/entities/movie';
+import { MovieServiceImpl } from '../../../../src/application/usecases/movieServiceMLImp';
+import { MovieApiService } from '../../../../src/interfaces/mlApiServiceInterface';
 
 const mockMovieApiService: MovieApiService = {
     triggerML: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])

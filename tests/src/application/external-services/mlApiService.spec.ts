@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { MovieApiServiceImp } from '../../../../src/adapters/external-services/mlApiService';
+import { MovieApiServiceImp } from '../../../../src/application//external-services/mlApiService';
 import { Movie } from '../../../../src/domain/entities/movie';
 import { AxiosClient } from '../../../../src/infrastructure/axios/axiosClient';
 
