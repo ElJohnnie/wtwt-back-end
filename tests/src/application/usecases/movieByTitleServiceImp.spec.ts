@@ -1,6 +1,6 @@
-import { TMDBApiExternalService } from '../../../src/adapters/external-services/tmdbService';
-import { MovieByTitleServiceImpl } from '../../../src/usecases/movieByTitleServiceImp';
+import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbService';
 import { AxiosInstance } from 'axios';
+import { MovieByTitleServiceImpl } from '../../../../src/application/usecases/movieByTitleServiceImp';
 
 process.env.TMDB_API_TOKEN = 'mock';
 

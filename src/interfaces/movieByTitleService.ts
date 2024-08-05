@@ -1,4 +1,4 @@
-import { TmdbResponseDTO } from "../adapters/external-services/dtos/tmdb-dto";
+import { TmdbResponseDTO } from "./dtos/tmdb-dto";
 
 export interface MovieByTitleService {
     getMoviesByTitle(params: {

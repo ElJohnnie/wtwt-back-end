@@ -3,6 +3,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { Request, Response, NextFunction } from 'express';
 import movieRouter from '../../../../../src/infrastructure/express/routes/movieRoutes';
+import { MovieApiServiceImp } from '../../../../../src/application/external-services/mlApiService';
+import { TMDBApiExternalService } from '../../../../../src/application/external-services/tmdbService';
+import { MovieServiceImpl } from '../../../../../src/application/usecases/movieServiceMLImp';
+import { MovieByTitleServiceImpl } from '../../../../../src/application/usecases/movieByTitleServiceImp';
+import { MovieController } from '../../../../../src/application/controllers/movieController';
 
 dotenv.config({
     path: '.env.test',
@@ -15,17 +20,12 @@ jest.mock('../../../../../src/infrastructure/express/middlewares/checkAuthorizat
     }),
 }));
 
-jest.mock('../../../../../src/adapters/external-services/mlApiService');
-jest.mock('../../../../../src/adapters/external-services/tmdbService');
-jest.mock('../../../../../src/usecases/movieServiceMLImp');
-jest.mock('../../../../../src/usecases/movieByTitleServiceImp');
-jest.mock('../../../../../src/adapters/controllers/movieController');
+jest.mock('../../../../../src/application/external-services/mlApiService');
+jest.mock('../../../../../src/application/external-services/tmdbService');
+jest.mock('../../../../../src/application/usecases/movieServiceMLImp');
+jest.mock('../../../../../src/application/usecases/movieByTitleServiceImp');
+jest.mock('../../../../../src/application/controllers/movieController');
 
-import { MovieApiServiceImp } from '../../../../../src/adapters/external-services/mlApiService';
-import { TMDBApiExternalService } from '../../../../../src/adapters/external-services/tmdbService';
-import { MovieServiceImpl } from '../../../../../src/usecases/movieServiceMLImp';
-import { MovieByTitleServiceImpl } from '../../../../../src/usecases/movieByTitleServiceImp';
-import { MovieController } from '../../../../../src/adapters/controllers/movieController';
 
 const app = express();
 app.use('/movies', movieRouter);

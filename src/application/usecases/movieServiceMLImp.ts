@@ -1,6 +1,6 @@
-import { Movie } from "../domain/entities/movie";
-import { MovieService } from "./movieServiceML";
-import { MovieApiService } from "../adapters/external-services/mlApiServiceInterface";
+import { Movie } from "../../domain/entities/movie";
+import { MovieService } from "../../interfaces/movieServiceML";
+import { MovieApiService } from "../../interfaces/mlApiServiceInterface";
 
 export class MovieServiceImpl implements MovieService {
     constructor(
