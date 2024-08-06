@@ -8,6 +8,7 @@ export const MovieSchema = z.object({
     secondaryGenre: z.string(),
     epoch: z.string()
 });
+
 export type Movie = z.infer<typeof MovieSchema>;
 
 

@@ -3,7 +3,7 @@ import { MovieService } from "../../interfaces/movieServiceML";
 import { MovieByTitleService } from "../../interfaces/movieByTitleService";
 import { MovieSchema, Movie } from "../../domain/entities/movie";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
-import { randomizeChoice } from "../../utils/randomizeChoise";
+// import { randomizeChoice } from "../../utils/randomizeChoise";
 
 export class MovieController {
     constructor(
@@ -25,7 +25,8 @@ export class MovieController {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
             }
 
-            const firstRecommendedMovie = randomizeChoice(recommendedMovies);
+            // const firstRecommendedMovie = randomizeChoice(recommendedMovies);
+            const firstRecommendedMovie = recommendedMovies[0];
             const movie = sanitizeTitle(firstRecommendedMovie.title);
             const detailedFirstMovie = await this._movieByTitleService.getMoviesByTitle({
                 query: movie,
