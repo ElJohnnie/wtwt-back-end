@@ -1,29 +1,43 @@
 version: "3.8"
 
 services:
-    back-end:
-        build: '.'
-        container_name: what-to-watch-tonight_bff
-        working_dir: /app
-        env_file:
-        - docker.env
-        expose:
-        - 5000
-        ports:
-        - "5000:5000"
-        networks:
-        - wtwt
-        depends_on:
-            redis:
-                condition: service_healthy
+    # back-end:
+    #     build: '.'
+    #     container_name: what-to-watch-tonight_bff
+    #     working_dir: /app
+    #     env_file:
+    #     - docker.env
+    #     expose:
+    #     - 5000
+    #     ports:
+    #     - "5000:5000"
+    #     networks:
+    #     - wtwt
+    #     depends_on:
+    #         redis:
+    #             condition: service_healthy
 
-    redis:
-        container_name: what-to-watch-tonight_cache
-        image: "redis:alpine"
+    # redis:
+    #     container_name: what-to-watch-tonight_cache
+    #     image: "redis:alpine"
+    #     ports:
+    #     - "6379:6379"
+    #     healthcheck:
+    #         test: ["CMD", "redis-cli", "ping"]
+    #         interval: 10s
+    #         timeout: 5s
+    #         retries: 5
+    #         start_period: 30s
+    #     networks:
+    #     - wtwt
+
+    mongo:
+        container_name: what-to-watch-tonight_mongo
+        image: "mongo:latest"
         ports:
-        - "6379:6379"
+        - "27017:27017"
         healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
+            test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
             interval: 10s
             timeout: 5s
             retries: 5
