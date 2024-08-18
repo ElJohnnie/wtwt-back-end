@@ -1,20 +1,8 @@
 import { Collection } from 'mongodb';
-import { MongoClient } from '../infrastructure/mongo/mongoClient';
 import { CacheAdapter } from '../interfaces/cacheAdapter';
 
 export class MongoCacheAdapter<T> implements CacheAdapter<T> {
     private collection: Collection;
-
-    constructor() {
-        this.initialize();
-    }
-
-    public async initialize() {
-        const db = await MongoClient.getInstance();
-        console.log(db)
-        const collectionName = process.env.CACHE_COLLECTION_NAME!;
-        this.collection = db.collection(collectionName);
-    }
 
     async get(key: string): Promise<T | null> {
         const result = await this.collection.findOne({ key });

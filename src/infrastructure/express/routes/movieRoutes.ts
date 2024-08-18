@@ -13,8 +13,6 @@ router.get("/", async (req, res) => {
     try {
         const movieApiService = new MovieApiServiceImp();
         const mongoCache = new MongoCacheAdapter<MoviePredicted[]>();
-        await mongoCache.initialize(); // Garanta que a inicialização foi concluída
-
         const movieMLService = new MovieServiceImpl(movieApiService, mongoCache);
         const externalTMDBAPIService = new TMDBApiExternalService();
         const tmdbAPIService = new MovieByTitleServiceImpl(externalTMDBAPIService);

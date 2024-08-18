@@ -1,7 +1,5 @@
-import app from "./infrastructure/express/server";
+import bootstrap from "./bootstrap";
 
-const PORT = process.env.PORT || 3000;
+bootstrap();
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+
