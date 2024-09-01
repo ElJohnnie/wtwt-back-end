@@ -12,17 +12,22 @@ export class MovieServiceImpl implements MovieService {
     ) { }
 
     async getRecommendedMovies(movieData: Movie): Promise<MoviePredicted[]> {
-        const cacheKey = this.createCacheKey(movieData);
-        let recommendedMovies = await this.cacheAdapter.get(cacheKey);
+        let recommendedMovies;
+        let cacheKey;
 
-        if (recommendedMovies) {
-            return recommendedMovies;
+        if(process.env.MONGO_URL) {
+            cacheKey = this.createCacheKey(movieData);
+            recommendedMovies = await this.cacheAdapter.get(cacheKey);
+            if (recommendedMovies) {
+                return recommendedMovies;
+            }
         }
 
         recommendedMovies = await this.movieApiService.triggerML(movieData);
         const processedMovies = this.processRecommendedMovies(recommendedMovies);
 
-        await this.cacheAdapter.set(cacheKey, processedMovies);
+        if(process.env.MONGO_URL) await this.cacheAdapter.set(cacheKey, processedMovies);
+
         return processedMovies;
     }
 

@@ -6,6 +6,7 @@ import { MovieServiceImpl } from "../../../application/usecases/movieServiceMLIm
 import { MovieByTitleServiceImpl } from "../../../application/usecases/movieByTitleServiceImp";
 import { MongoCacheAdapter } from "../../../adapters/mongoCacheAdapter";
 import { MoviePredicted } from "../../../interfaces/dtos/mlApi-dto";
+import { Errors } from "../../../interfaces/enums/errors";
 
 const router = express.Router();
 
@@ -20,8 +21,8 @@ router.get("/", async (req, res) => {
 
         await movieController.recommendMovies(req, res);
     } catch (error) {
-        console.error('Error in API route:', error);
-        res.status(500).json({ status: 500, error: 'Internal Server Error', message: error.message });
+        console.error(Errors.Route, error);
+        res.status(500).json({ status: 500, error: Errors.Route, message: error.message });
     }
 });
 

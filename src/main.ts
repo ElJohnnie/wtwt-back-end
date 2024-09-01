@@ -1,5 +1,5 @@
-import bootstrap from "./bootstrap";
+import Bootstrap from "./bootstrap";
 
-bootstrap();
+const bootstrap = new Bootstrap();
 
-
+bootstrap.initialize();

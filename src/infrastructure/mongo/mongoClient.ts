@@ -1,4 +1,5 @@
 import { MongoClient as NativeMongoClient, Db } from 'mongodb';
+import { Errors } from '../../interfaces/enums/errors';
 
 export class MongoClient {
     private static instances: Map<string, Db> = new Map();
@@ -20,8 +21,8 @@ export class MongoClient {
 
                 await this.ensureCollectionExists(db, collectionName);
             } catch (err) {
-                console.error('Erro ao conectar ao MongoDB:', err);
-                throw err;
+                console.error(Errors.MongoClient, err);
+                throw new Error(Errors.MongoClient);
             }
         }
 

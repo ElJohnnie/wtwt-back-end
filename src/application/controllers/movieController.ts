@@ -3,7 +3,9 @@ import { MovieService } from "../../interfaces/movieServiceML";
 import { MovieByTitleService } from "../../interfaces/movieByTitleService";
 import { MovieSchema, Movie } from "../../domain/entities/movie";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
+import { Errors } from "../../interfaces/enums/errors";
 // import { randomizeChoice } from "../../utils/randomizeChoise";
+
 
 export class MovieController {
     constructor(
@@ -16,13 +18,13 @@ export class MovieController {
 
             const parsedData = MovieSchema.safeParse(req.query);
             if (!parsedData.success) {
-                return res.status(400).json({ error: "Dados inválidos", details: parsedData.error.errors });
+                return res.status(400).json({ error: Errors.InvalidData, details: parsedData.error.errors });
             }
 
             const data = req.query as unknown as Movie;
             const recommendedMovies = await this._movieService.getRecommendedMovies(data);
             if (recommendedMovies.length === 0) {
-                return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
+                return res.status(404).json({ error: Errors.NotFoundData });
             }
 
             // const firstRecommendedMovie = randomizeChoice(recommendedMovies);
@@ -37,7 +39,7 @@ export class MovieController {
             const status = error.response ? error.response.status : 500;
             const errorResponse = {
                 status: status,
-                error: error.response ? error.response.statusText : 'Internal Server Error',
+                error: error.response ? error.response.statusText : Errors.InternalError,
                 message: error.message
             };
             res.status(status).json(errorResponse);
