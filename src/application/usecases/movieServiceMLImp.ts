@@ -1,10 +1,11 @@
 import { Movie } from "../../domain/entities/movie";
-import { MovieService } from "../../interfaces/movieServiceML";
+import { MovieServiceInterface } from "../../interfaces/movieServiceMLInterface";
 import { MovieApiService } from "../../interfaces/mlApiServiceInterface";
+import { MoviePredicted } from "../../interfaces/mlApiServiceInterface";
 
-export class MovieServiceImpl implements MovieService {
+export class MovieServiceImpl implements MovieServiceInterface<MoviePredicted[]> {
     constructor(
-        private movieApiService: MovieApiService
+        private movieApiService: MovieApiService<MoviePredicted[]>
     ) {}
 
     async getRecommendedMovies(movieData: Movie) {

@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbService';
-import { TmdbResponseDTO } from '../../../../src/interfaces/dtos/tmdb-dto';
+import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
 
 process.env.TMDB_API_TOKEN = 'mock';
 
@@ -18,7 +18,7 @@ describe('TMDBApiExternalService', () => {
             language: 'en-US'
         };
 
-        const mockResponse: TmdbResponseDTO = {
+        const mockResponse: TmdbResponse = {
             page: 1,
             results: [
                 {

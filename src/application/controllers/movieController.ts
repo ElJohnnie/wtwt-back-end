@@ -1,14 +1,17 @@
 import { Request, Response } from "express";
-import { MovieService } from "../../interfaces/movieServiceML";
-import { MovieByTitleService } from "../../interfaces/movieByTitleService";
+import { MovieServiceInterface } from "../../interfaces/movieServiceMLInterface";
+import { MovieByTitleServiceInterface } from "../../interfaces/movieByTitleServiceinterface";
 import { MovieSchema, Movie } from "../../domain/entities/movie";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
+import { TmdbResultDTO } from "../../interfaces/dtos/tmdb-dto";
+import { MoviePredicted } from "../../interfaces/mlApiServiceInterface";
+import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
 // import { randomizeChoice } from "../../utils/randomizeChoise";
 
 export class MovieController {
     constructor(
-        private _movieService: MovieService,
-        private _movieByTitleService: MovieByTitleService
+        private _movieService: MovieServiceInterface<MoviePredicted[]>,
+        private _movieByTitleService: MovieByTitleServiceInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
@@ -32,7 +35,15 @@ export class MovieController {
                 query: movie,
                 language: 'pt-br'
             });
-            res.json({ recommendedMovie: firstRecommendedMovie, detailedMovie: detailedFirstMovie });
+
+            const result: TmdbResultDTO = {
+                backdrop_path: detailedFirstMovie.results[0].backdrop_path,
+                popularity: detailedFirstMovie.results[0].popularity,
+                title: detailedFirstMovie.results[0].title,
+                overview: detailedFirstMovie.results[0].overview
+            };
+
+            res.json(result);
         } catch (error) {
             const status = error.response ? error.response.status : 500;
             const errorResponse = {

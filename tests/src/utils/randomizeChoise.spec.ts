@@ -1,5 +1,5 @@
 import { randomizeChoice } from '../../../src/utils/randomizeChoise';
-import { MoviePredicted } from '../../../src/interfaces/dtos/mlApi-dto';
+import { MoviePredicted } from '../../../src/interfaces/mlApiServiceInterface';
 
 const mockMovies: MoviePredicted[] = [
     { title: 'Movie 1', genres: ['Action', 'Adventure'] },

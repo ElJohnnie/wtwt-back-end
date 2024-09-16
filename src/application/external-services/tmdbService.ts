@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { TmdbResponseDTO } from '../../interfaces/dtos/tmdb-dto';
+import { TmdbResponse } from '../../interfaces/tmdbServiceInterface';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 
 export class TMDBApiExternalService {
@@ -17,8 +17,8 @@ export class TMDBApiExternalService {
         page?: number;
         region?: string;
         year?: string;
-    }): Promise<TmdbResponseDTO> {
-        const response = await this._axiosInstance.get<TmdbResponseDTO>('/search/movie', {
+    }): Promise<TmdbResponse> {
+        const response = await this._axiosInstance.get('/search/movie', {
             params: {
                 query: params.query,
                 include_adult: params.include_adult,
