@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { MovieController } from '../../../../src/application/controllers/movieController';
 import { sanitizeTitle } from '../../../../src/utils/sanitizeTitle';
-import { TmdbResponseDTO } from '../../../../src/interfaces/dtos/tmdb-dto';
+import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
 
 jest.mock('../../../../src/utils/sanitizeTitle');
 
@@ -55,7 +55,7 @@ describe('MovieController', () => {
     it('should return recommended and detailed movie data if movies are found', async () => {
         req.query = { mood: 'sad', primaryGenre: 'Thriller', secondaryGenre: 'Thriller', epoch: '2010' };
         const recommendedMovies = [{ title: 'Recommended Movie' }];
-        const detailedMovie: TmdbResponseDTO = {
+        const detailedMovie: TmdbResponse = {
             page: 1,
             results: [{
                 adult: false,
@@ -84,8 +84,10 @@ describe('MovieController', () => {
         await movieController.recommendMovies(req as Request, res as Response);
 
         expect(res.json).toHaveBeenCalledWith({
-            recommendedMovie: recommendedMovies[0],
-            detailedMovie: detailedMovie
+            title: 'Detailed Movie',
+            popularity: 100,
+            backdrop_path: '/path/to/backdrop.jpg',
+            overview: 'Overview of the movie.',
         });
     });
 

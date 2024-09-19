@@ -1,8 +1,8 @@
-import { TmdbResponseDTO } from "../../interfaces/dtos/tmdb-dto";
+import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
 import { TMDBApiExternalService } from "../external-services/tmdbService";
-import { MovieByTitleService } from "../../interfaces/movieByTitleService";
+import { MovieByTitleServiceInterface } from "../../interfaces/movieByTitleServiceinterface";
 
-export class MovieByTitleServiceImpl implements MovieByTitleService {
+export class MovieByTitleServiceImpl implements MovieByTitleServiceInterface<TmdbResponse> {
     constructor(private tmdbApiService: TMDBApiExternalService) {}
 
     async getMoviesByTitle(params: {
@@ -13,7 +13,7 @@ export class MovieByTitleServiceImpl implements MovieByTitleService {
         page?: number;
         region?: string;
         year?: string;
-    }): Promise<TmdbResponseDTO> {
+    }): Promise<TmdbResponse> {
         return this.tmdbApiService.getMoviesByTitle(params);
     }
 }

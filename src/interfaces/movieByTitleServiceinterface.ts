@@ -1,6 +1,4 @@
-import { TmdbResponseDTO } from "./dtos/tmdb-dto";
-
-export interface MovieByTitleService {
+export interface MovieByTitleServiceInterface<T> {
     getMoviesByTitle(params: {
         query: string;
         include_adult?: boolean;
@@ -9,5 +7,5 @@ export interface MovieByTitleService {
         page?: number;
         region?: string;
         year?: string;
-    }): Promise<TmdbResponseDTO>;
+    }): Promise<T>;
 }

@@ -1,4 +1,4 @@
-import { MoviePredicted } from "../interfaces/dtos/mlApi-dto";
+import { MoviePredicted } from "../interfaces/mlApiServiceInterface";
 
 const getRandomNumber = (max: number) => Math.floor(Math.random() * max);
 

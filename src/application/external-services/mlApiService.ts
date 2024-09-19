@@ -1,19 +1,18 @@
-import { Movie } from "../../domain/entities/movie";
 import { MovieApiService } from "../../interfaces/mlApiServiceInterface";
 import { AxiosInstance } from 'axios';
-import { PredictionResponseDTO, MoviePredicted } from "../../interfaces/dtos/mlApi-dto";
+import { PredictionResponse, MoviePredicted } from "../../interfaces/mlApiServiceInterface";
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 
-export class MovieApiServiceImp implements MovieApiService {
+export class MovieApiServiceImp implements MovieApiService<MoviePredicted[]> {
     private _axiosInstance: AxiosInstance;
 
     constructor() {
         this._axiosInstance = AxiosClient.getInstance(process.env.ML_API_URL);
     }
 
-    async triggerML(params: Movie): Promise<MoviePredicted[]> {
+    async triggerML(params): Promise<MoviePredicted[]> {
 
-        const response = await this._axiosInstance.post<PredictionResponseDTO>('/ml', {
+        const response = await this._axiosInstance.post<PredictionResponse>('/ml', {
             mood: params.mood,
             primaryGenre: params.primaryGenre,
             secondaryGenre: params.secondaryGenre,
