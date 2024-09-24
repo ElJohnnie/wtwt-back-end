@@ -85,7 +85,7 @@ describe('MovieController', () => {
 
         expect(res.json).toHaveBeenCalledWith({
             title: 'Detailed Movie',
-            popularity: 100,
+            popularity: 8.5,
             backdrop_path: '/path/to/backdrop.jpg',
             overview: 'Overview of the movie.',
         });

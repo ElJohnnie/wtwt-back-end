@@ -38,7 +38,7 @@ export class MovieController {
 
             const result: TmdbResultDTO = {
                 backdrop_path: detailedFirstMovie.results[0].backdrop_path,
-                popularity: detailedFirstMovie.results[0].popularity,
+                popularity: detailedFirstMovie.results[0].vote_average,
                 title: detailedFirstMovie.results[0].title,
                 overview: detailedFirstMovie.results[0].overview
             };
