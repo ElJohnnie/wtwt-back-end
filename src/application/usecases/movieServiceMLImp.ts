@@ -11,12 +11,20 @@ export class MovieServiceImpl implements MovieServiceInterface<MoviePredicted[]>
     async getRecommendedMovies(movieData: Movie) {
         const recommendedMovies = await this.movieApiService.triggerML(movieData);
         const processedMovies = this.processRecommendedMovies(recommendedMovies);
-        return processedMovies;
+        const randomizeChoice = this.randomizeChoice(processedMovies);
+        return [randomizeChoice];
     }
 
     private processRecommendedMovies(recommendedMovies) {
         return recommendedMovies.map(movie => ({
             title: movie.title,
         }));
+    }
+
+    private randomizeChoice(processedMovies) {
+        if (processedMovies.length === 1) {
+            return processedMovies[0]
+        }
+        return processedMovies[Math.floor(Math.random() * processedMovies.length)];
     }
 }
