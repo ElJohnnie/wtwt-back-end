@@ -6,12 +6,11 @@ import { sanitizeTitle } from "../../utils/sanitizeTitle";
 import { TmdbResultDTO } from "../../interfaces/dtos/tmdb-dto";
 import { MoviePredicted } from "../../interfaces/mlApiServiceInterface";
 import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
-// import { randomizeChoice } from "../../utils/randomizeChoise";
 
 export class MovieController {
     constructor(
-        private _movieService: MovieServiceInterface<MoviePredicted[]>,
-        private _movieByTitleService: MovieByTitleServiceInterface<TmdbResponse>
+        private readonly _movieService: MovieServiceInterface<MoviePredicted[]>,
+        private readonly _movieByTitleService: MovieByTitleServiceInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
@@ -28,7 +27,6 @@ export class MovieController {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
             }
 
-            // const firstRecommendedMovie = randomizeChoice(recommendedMovies);
             const firstRecommendedMovie = recommendedMovies[0];
             const movie = sanitizeTitle(firstRecommendedMovie.title);
             const detailedFirstMovie = await this._movieByTitleService.getMoviesByTitle({
@@ -40,7 +38,15 @@ export class MovieController {
                 backdrop_path: detailedFirstMovie.results[0].backdrop_path,
                 popularity: detailedFirstMovie.results[0].popularity,
                 title: detailedFirstMovie.results[0].title,
-                overview: detailedFirstMovie.results[0].overview
+                overview: detailedFirstMovie.results[0].overview,
+                otherMovies: detailedFirstMovie.results.slice(1, 20).map((movie) => {
+                    return {
+                        title: movie.title,
+                        popularity: movie.popularity,
+                        backdrop_path: movie.backdrop_path,
+                        overview: movie.overview
+                    }
+                }),
             };
 
             res.json(result);
