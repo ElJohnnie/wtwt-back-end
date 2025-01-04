@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 export class AxiosClient {
-    private static instances: Map<string, AxiosInstance> = new Map();
+    private static readonly instances: Map<string, AxiosInstance> = new Map();
 
     static getInstance(apiBaseUrl: string): AxiosInstance {
         if (!this.instances.has(apiBaseUrl)) {
@@ -22,6 +22,6 @@ export class AxiosClient {
             this.instances.set(apiBaseUrl, instance);
         }
 
-        return this.instances.get(apiBaseUrl)!;
+        return this.instances.get(apiBaseUrl);
     }
 }

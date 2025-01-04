@@ -1,10 +1,10 @@
-import { MovieApiService } from "../../interfaces/mlApiServiceInterface";
+import { MLApiService } from "../../interfaces/mlApiServiceInterface";
 import { AxiosInstance } from 'axios';
-import { PredictionResponse, MoviePredicted } from "../../interfaces/mlApiServiceInterface";
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
+import { MoviePredicted, PredictionResponse } from "../../interfaces/dtos/mlServiceDTO";
 
-export class MovieApiServiceImp implements MovieApiService<MoviePredicted[]> {
-    private _axiosInstance: AxiosInstance;
+export class MovieApiServiceImp implements MLApiService<MoviePredicted[]> {
+    private readonly _axiosInstance: AxiosInstance;
 
     constructor() {
         this._axiosInstance = AxiosClient.getInstance(process.env.ML_API_URL);
