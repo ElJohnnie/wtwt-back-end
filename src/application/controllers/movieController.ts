@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { MLUsecaseInterface } from "../../interfaces/mlUsecaseInterface";
 import { MovieByTitleServiceInterface } from "../../interfaces/movieByTitleServiceInterface";
-import { MovieSchema, Movie } from "../../domain/entities/movie";
+import { MainRequestSchema, MainRequestDTO } from "../../interfaces/mainRequestDTO";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
 import { TmdbResultDTO } from "../../interfaces/dtos/tmdbDTO";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
@@ -16,12 +16,12 @@ export class MovieController {
     async recommendMovies(req: Request, res: Response) {
         try {
 
-            const parsedData = MovieSchema.safeParse(req.query);
+            const parsedData = MainRequestSchema.safeParse(req.query);
             if (!parsedData.success) {
                 return res.status(400).json({ error: "Dados inválidos", details: parsedData.error.errors });
             }
 
-            const data = req.query as unknown as Movie;
+            const data = req.query as unknown as MainRequestDTO;
             const recommendedMovies = await this._mlService.getRecommendedMovies(data);
             if (recommendedMovies.length === 0) {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });

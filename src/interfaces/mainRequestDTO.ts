@@ -2,13 +2,13 @@
 
 import { z } from "zod";
 
-export const MovieSchema = z.object({
+export const MainRequestSchema = z.object({
     mood: z.string(),
     primaryGenre: z.string(),
     secondaryGenre: z.string(),
     epoch: z.string()
 });
 
-export type Movie = z.infer<typeof MovieSchema>;
+export type MainRequestDTO = z.infer<typeof MainRequestSchema>;
 
 

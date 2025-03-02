@@ -1,8 +1,8 @@
 
 import axios from 'axios';
 import { MLApiServiceImp } from '../../../../src/application/external-services/mlApiServiceImp';
-import { Movie } from '../../../../src/domain/entities/movie';
 import { AxiosClient } from '../../../../src/infrastructure/axios/axiosClient';
+import { MainRequestDTO } from '../../../../src/interfaces/mainRequestDTO';
 
 process.env.ML_API_URL = 'http://mockapi.com';
 process.env.ML_API_TOKEN = 'mockToken';
@@ -21,7 +21,7 @@ describe('MovieApiServiceImp', () => {
     });
 
     it('should trigger ML API with movie parameters', async () => {
-        const movieParams: Movie = {
+        const movieParams: MainRequestDTO = {
             mood: 'happy',
             primaryGenre: 'Action',
             secondaryGenre: 'Comedy',

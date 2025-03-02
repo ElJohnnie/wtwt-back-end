@@ -1,4 +1,4 @@
-import { Movie } from "../../domain/entities/movie";
+import { MainRequestDTO } from "../../interfaces/mainRequestDTO";
 import { MLUsecaseInterface } from "../../interfaces/mlUsecaseInterface";
 import { MLApiService } from "../../interfaces/mlApiServiceInterface";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
@@ -8,7 +8,7 @@ export class MLUsecaseImpl implements MLUsecaseInterface<MoviePredicted[]> {
         private readonly movieApiService: MLApiService<MoviePredicted[]>
     ) {}
 
-    async getRecommendedMovies(movieData: Movie) {
+    async getRecommendedMovies(movieData: MainRequestDTO) {
         const recommendedMovies = await this.movieApiService.triggerML(movieData);
         const processedMovies: MoviePredicted[] = this.processRecommendedMovies(recommendedMovies);
         return processedMovies;

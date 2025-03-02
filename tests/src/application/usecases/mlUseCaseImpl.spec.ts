@@ -1,4 +1,4 @@
-import { Movie } from '../../../../src/domain/entities/movie';
+import { MainRequestDTO } from '../../../../src/interfaces/mainRequestDTO';
 import { MLUsecaseImpl } from '../../../../src/application/usecases/mlUsecaseImp';
 
 
@@ -14,7 +14,7 @@ describe('MovieServiceImpl', () => {
     });
 
     it('should return processed recommended movies', async () => {
-        const movieData: Movie = {
+        const movieData: MainRequestDTO = {
             mood: 'sad',
             primaryGenre: 'Thriller',
             secondaryGenre: 'Thriller',
@@ -28,7 +28,7 @@ describe('MovieServiceImpl', () => {
     });
 
     it('should call triggerML with correct movie data', async () => {
-        const movieData: Movie = {
+        const movieData: MainRequestDTO = {
             mood: 'happy',
             primaryGenre: 'Comedy',
             secondaryGenre: 'Romance',
@@ -41,7 +41,7 @@ describe('MovieServiceImpl', () => {
     });
 
     it('should process recommended movies correctly', async () => {
-        const movieData: Movie = {
+        const movieData: MainRequestDTO = {
             mood: 'excited',
             primaryGenre: 'Action',
             secondaryGenre: 'Adventure',
@@ -54,7 +54,7 @@ describe('MovieServiceImpl', () => {
     });
 
     it('should randomize choice correctly when there is more than one movie', async () => {
-        const movieData: Movie = {
+        const movieData: MainRequestDTO = {
             mood: 'bored',
             primaryGenre: 'Drama',
             secondaryGenre: 'Mystery',
@@ -70,7 +70,7 @@ describe('MovieServiceImpl', () => {
     it('should return the only movie when there is one movie', async () => {
         mockMovieApiService.triggerML.mockResolvedValueOnce([{ title: 'Only Movie' }]);
 
-        const movieData: Movie = {
+        const movieData: MainRequestDTO = {
             mood: 'neutral',
             primaryGenre: 'Documentary',
             secondaryGenre: 'Biography',
