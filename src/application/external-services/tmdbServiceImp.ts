@@ -3,7 +3,7 @@ import { TmdbResponse } from '../../interfaces/tmdbServiceInterface';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 
 export class TMDBApiExternalService {
-    private _axiosInstance: AxiosInstance;
+    private readonly _axiosInstance: AxiosInstance;
 
     constructor() {
         this._axiosInstance = AxiosClient.getInstance(process.env.TMDB_API_URL);

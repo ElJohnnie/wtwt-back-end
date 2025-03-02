@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbService';
+import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbServiceImp';
 import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
 
 process.env.TMDB_API_TOKEN = 'mock';

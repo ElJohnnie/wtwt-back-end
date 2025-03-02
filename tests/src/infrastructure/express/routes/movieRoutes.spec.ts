@@ -3,9 +3,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { Request, Response, NextFunction } from 'express';
 import movieRouter from '../../../../../src/infrastructure/express/routes/movieRoutes';
-import { MovieApiServiceImp } from '../../../../../src/application/external-services/mlApiService';
-import { TMDBApiExternalService } from '../../../../../src/application/external-services/tmdbService';
-import { MovieServiceImpl } from '../../../../../src/application/usecases/movieServiceMLImp';
+import { MLApiServiceImp } from '../../../../../src/application/external-services/mlApiServiceImp';
+import { TMDBApiExternalService } from '../../../../../src/application/external-services/tmdbServiceImp';
+import { MLUsecaseImpl } from '../../../../../src/application/usecases/mlUsecaseImp';
 import { MovieByTitleServiceImpl } from '../../../../../src/application/usecases/movieByTitleServiceImp';
 import { MovieController } from '../../../../../src/application/controllers/movieController';
 
@@ -20,9 +20,9 @@ jest.mock('../../../../../src/infrastructure/express/middlewares/checkAuthorizat
     }),
 }));
 
-jest.mock('../../../../../src/application/external-services/mlApiService');
-jest.mock('../../../../../src/application/external-services/tmdbService');
-jest.mock('../../../../../src/application/usecases/movieServiceMLImp');
+jest.mock('../../../../../src/application/external-services/mlApiServiceImp');
+jest.mock('../../../../../src/application/external-services/tmdbServiceImp');
+jest.mock('../../../../../src/application/usecases/mlUsecaseImp');
 jest.mock('../../../../../src/application/usecases/movieByTitleServiceImp');
 jest.mock('../../../../../src/application/controllers/movieController');
 
@@ -32,7 +32,7 @@ app.use('/movies', movieRouter);
 
 describe('Movie router', () => {
     it('should trigger domain route', async () => {
-        (MovieApiServiceImp as jest.Mock).mockImplementation(() => ({
+        (MLApiServiceImp as jest.Mock).mockImplementation(() => ({
             triggerML: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])
         }));
 
@@ -40,7 +40,7 @@ describe('Movie router', () => {
             getMoviesByTitle: jest.fn().mockResolvedValue({ results: [{ title: 'Found Movie 1' }, { title: 'Found Movie 2' }] })
         }));
 
-        (MovieServiceImpl as jest.Mock).mockImplementation(() => ({
+        (MLUsecaseImpl as jest.Mock).mockImplementation(() => ({
             recommendMovies: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])
         }));
 

@@ -88,6 +88,7 @@ describe('MovieController', () => {
             popularity: 100,
             backdrop_path: '/path/to/backdrop.jpg',
             overview: 'Overview of the movie.',
+            otherMovies: []
         });
     });
 
