@@ -1,4 +1,4 @@
-import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbService';
+import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbServiceImp';
 import { AxiosInstance } from 'axios';
 import { MovieByTitleServiceImpl } from '../../../../src/application/usecases/movieByTitleServiceImp';
 

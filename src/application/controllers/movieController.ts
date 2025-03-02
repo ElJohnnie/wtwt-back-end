@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { MLServiceInterface } from "../../interfaces/mlServiceInterface";
+import { MLUsecaseInterface } from "../../interfaces/mlUsecaseInterface";
 import { MovieByTitleServiceInterface } from "../../interfaces/movieByTitleServiceInterface";
 import { MovieSchema, Movie } from "../../domain/entities/movie";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
@@ -9,7 +9,7 @@ import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
 
 export class MovieController {
     constructor(
-        private readonly _mlService: MLServiceInterface<MoviePredicted[]>,
+        private readonly _mlService: MLUsecaseInterface<MoviePredicted[]>,
         private readonly _movieByTitleService: MovieByTitleServiceInterface<TmdbResponse>
     ) {}
 

@@ -1,9 +1,9 @@
 import { Movie } from "../../domain/entities/movie";
-import { MLServiceInterface } from "../../interfaces/mlServiceInterface";
+import { MLUsecaseInterface } from "../../interfaces/mlUsecaseInterface";
 import { MLApiService } from "../../interfaces/mlApiServiceInterface";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
 
-export class MLServiceImpl implements MLServiceInterface<MoviePredicted[]> {
+export class MLUsecaseImpl implements MLUsecaseInterface<MoviePredicted[]> {
     constructor(
         private readonly movieApiService: MLApiService<MoviePredicted[]>
     ) {}

@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { MovieApiServiceImp } from '../../../../src/application//external-services/mlApiService';
+import { MLApiServiceImp } from '../../../../src/application/external-services/mlApiServiceImp';
 import { Movie } from '../../../../src/domain/entities/movie';
 import { AxiosClient } from '../../../../src/infrastructure/axios/axiosClient';
 
@@ -13,11 +13,11 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedAxiosClient = AxiosClient as jest.Mocked<typeof AxiosClient>;
 
 describe('MovieApiServiceImp', () => {
-    let movieApiService: MovieApiServiceImp;
+    let mlApiService: MLApiServiceImp;
 
     beforeEach(() => {
         mockedAxiosClient.getInstance.mockReturnValue(mockedAxios);
-        movieApiService = new MovieApiServiceImp();
+        mlApiService = new MLApiServiceImp();
     });
 
     it('should trigger ML API with movie parameters', async () => {
@@ -37,7 +37,7 @@ describe('MovieApiServiceImp', () => {
 
         mockedAxios.post.mockResolvedValueOnce({ data: mockResponse });
 
-        const predictedMovies = await movieApiService.triggerML(movieParams);
+        const predictedMovies = await mlApiService.triggerML(movieParams);
 
         expect(predictedMovies).toEqual(mockResponse.data);
         expect(mockedAxios.post).toHaveBeenCalledWith('/ml', {

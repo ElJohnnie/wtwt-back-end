@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 import { MoviePredicted, PredictionResponse } from "../../interfaces/dtos/mlServiceDTO";
 
-export class MovieApiServiceImp implements MLApiService<MoviePredicted[]> {
+export class MLApiServiceImp implements MLApiService<MoviePredicted[]> {
     private readonly _axiosInstance: AxiosInstance;
 
     constructor() {
