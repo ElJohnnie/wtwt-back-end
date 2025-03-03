@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { MLUsecaseInterface } from "../../interfaces/mlUsecaseInterface";
-import { MovieByTitleServiceInterface } from "../../interfaces/movieByTitleServiceInterface";
-import { MainRequestSchema, MainRequestDTO } from "../../interfaces/mainRequestDTO";
+import { GetRecommendedMoviesInterface } from "../../interfaces/getRecommendedMoviesInterface";
+import { MovieByTitleServiceInterface } from "../../interfaces/getMoviesByTitleInterface";
+import { MainRequestSchema, MainRequestDTO } from "../../interfaces/dtos/mainRequestDTO";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
 import { TmdbResultDTO } from "../../interfaces/dtos/tmdbDTO";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
@@ -9,8 +9,8 @@ import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
 
 export class MovieController {
     constructor(
-        private readonly _mlService: MLUsecaseInterface<MoviePredicted[]>,
-        private readonly _movieByTitleService: MovieByTitleServiceInterface<TmdbResponse>
+        private readonly _getRecommendedMovies: GetRecommendedMoviesInterface<MoviePredicted[]>,
+        private readonly _getMovieByTitle: MovieByTitleServiceInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
@@ -22,7 +22,7 @@ export class MovieController {
             }
 
             const data = req.query as unknown as MainRequestDTO;
-            const recommendedMovies = await this._mlService.getRecommendedMovies(data);
+            const recommendedMovies = await this._getRecommendedMovies.execute(data);
             if (recommendedMovies.length === 0) {
                 return res.status(404).json({ error: "Nenhum filme recomendado encontrado" });
             }
@@ -30,7 +30,7 @@ export class MovieController {
             const firstRecommendedMovie = recommendedMovies[0];
 
             const movie = sanitizeTitle(firstRecommendedMovie.title);
-            const detailedFirstMovie = await this._movieByTitleService.getMoviesByTitle({
+            const detailedFirstMovie = await this._getMovieByTitle.execute({
                 query: movie,
                 language: 'pt-br'
             });

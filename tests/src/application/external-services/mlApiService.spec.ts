@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { MLApiServiceImp } from '../../../../src/application/external-services/mlApiServiceImp';
 import { AxiosClient } from '../../../../src/infrastructure/axios/axiosClient';
-import { MainRequestDTO } from '../../../../src/interfaces/mainRequestDTO';
+import { MainRequestDTO } from '../../../../src/interfaces/dtos/mainRequestDTO';
 
 process.env.ML_API_URL = 'http://mockapi.com';
 process.env.ML_API_TOKEN = 'mockToken';
