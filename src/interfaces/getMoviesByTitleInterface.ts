@@ -1,6 +1,6 @@
-export interface MoreMoviesRecommendationsInterface<T> {
-    getMoreRecommendation(params: {
-        query: string[];
+export interface MovieByTitleServiceInterface<T> {
+    execute(params: {
+        query: string;
         include_adult?: boolean;
         language?: string;
         primary_release_year?: string;

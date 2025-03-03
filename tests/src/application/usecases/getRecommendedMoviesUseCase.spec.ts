@@ -1,12 +1,12 @@
-import { MainRequestDTO } from '../../../../src/interfaces/mainRequestDTO';
-import { MLUsecaseImpl } from '../../../../src/application/usecases/mlUsecaseImp';
+import { MainRequestDTO } from '../../../../src/interfaces/dtos/mainRequestDTO';
+import { GetRecommendedMoviesUseCase } from '../../../../src/application/usecases/getRecommendedMoviesUseCase';
 
 
 const mockMovieApiService = {
     triggerML: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])
 };
 
-const mlUsecase = new MLUsecaseImpl(mockMovieApiService);
+const mlUsecase = new GetRecommendedMoviesUseCase(mockMovieApiService);
 
 describe('MovieServiceImpl', () => {
     beforeEach(() => {
@@ -21,7 +21,7 @@ describe('MovieServiceImpl', () => {
             epoch: '2010'
         };
 
-        const recommendedMovies = await mlUsecase.getRecommendedMovies(movieData);
+        const recommendedMovies = await mlUsecase.execute(movieData);
 
         expect(recommendedMovies).toEqual(expect.any(Array));
         expect(recommendedMovies[0]).toHaveProperty('title');
@@ -35,7 +35,7 @@ describe('MovieServiceImpl', () => {
             epoch: '2000'
         };
 
-        await mlUsecase.getRecommendedMovies(movieData);
+        await mlUsecase.execute(movieData);
 
         expect(mockMovieApiService.triggerML).toHaveBeenCalledWith(movieData);
     });
@@ -48,7 +48,7 @@ describe('MovieServiceImpl', () => {
             epoch: '2020'
         };
 
-        const recommendedMovies = await mlUsecase.getRecommendedMovies(movieData);
+        const recommendedMovies = await mlUsecase.execute(movieData);
 
         expect(recommendedMovies[0]).toEqual(expect.objectContaining({ title: expect.any(String) }));
     });
@@ -61,7 +61,7 @@ describe('MovieServiceImpl', () => {
             epoch: '1990'
         };
 
-        const recommendedMovies = await mlUsecase.getRecommendedMovies(movieData);
+        const recommendedMovies = await mlUsecase.execute(movieData);
 
         expect(recommendedMovies.length).toBe(2);
         expect(['Movie 1', 'Movie 2']).toContain(recommendedMovies[0].title);
@@ -77,7 +77,7 @@ describe('MovieServiceImpl', () => {
             epoch: '2015'
         };
 
-        const recommendedMovies = await mlUsecase.getRecommendedMovies(movieData);
+        const recommendedMovies = await mlUsecase.execute(movieData);
 
         expect(recommendedMovies.length).toBe(1);
         expect(recommendedMovies[0].title).toBe('Only Movie');

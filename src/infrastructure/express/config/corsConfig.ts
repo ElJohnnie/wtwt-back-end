@@ -8,8 +8,8 @@ export default {
         if (allowedOrigins.includes(origin) || !origin) {
             callback(null, true);
         } else {
-            // callback(new Error('Not allowed by CORS', ));
-            callback(console.log(origin))
+            callback(new Error('Not allowed by CORS', ));
+            // callback(console.log(origin))
         }
     }
 };

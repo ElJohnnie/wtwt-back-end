@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
-import { MoreMoviesRecommendationsInterface } from "../../interfaces/moreMoviesRecommendationServiceInterface";
+import { MoreMoviesRecommendationsInterface } from "../../interfaces/moreMoviesRecommendationInterface";
 import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
 
 export class MoreRecommendationsController {
     constructor(
-        private readonly _moreRecommendation: MoreMoviesRecommendationsInterface<TmdbResponse>
+        private readonly _moreMoviesRecommendation: MoreMoviesRecommendationsInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
         try {
             const query = req.query.movies as string;
-            console.log(query);
 
-            const moreResultsMovies = await this._moreRecommendation.getMoreRecommendation({
+            const moreResultsMovies = await this._moreMoviesRecommendation.execute({
                 query: query.split(','),
                 language: 'pt-br'
             });
