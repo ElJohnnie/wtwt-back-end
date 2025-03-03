@@ -1,11 +1,11 @@
 import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
-import { TMDBApiExternalService } from "../external-services/tmdbService";
-import { MovieByTitleServiceInterface } from "../../interfaces/movieByTitleServiceinterface";
+import { TMDBApiExternalService } from "../external-services/tmdbServiceImp";
+import { MovieByTitleServiceInterface } from "../../interfaces/getMoviesByTitleInterface";
 
-export class MovieByTitleServiceImpl implements MovieByTitleServiceInterface<TmdbResponse> {
-    constructor(private tmdbApiService: TMDBApiExternalService) {}
+export class GetMoviesByTitleUseCase implements MovieByTitleServiceInterface<TmdbResponse> {
+    constructor(private readonly tmdbApiService: TMDBApiExternalService) {}
 
-    async getMoviesByTitle(params: {
+    async execute(params: {
         query: string;
         include_adult?: boolean;
         language?: string;

@@ -1,5 +1,5 @@
 export interface MovieByTitleServiceInterface<T> {
-    getMoviesByTitle(params: {
+    execute(params: {
         query: string;
         include_adult?: boolean;
         language?: string;

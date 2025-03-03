@@ -6,11 +6,11 @@ import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
 jest.mock('../../../../src/utils/sanitizeTitle');
 
 const mockMovieService = {
-    getRecommendedMovies: jest.fn()
+    execute: jest.fn()
 };
 
 const mockMovieByTitleService = {
-    getMoviesByTitle: jest.fn()
+    execute: jest.fn()
 };
 const mockSanitizeTitle = sanitizeTitle as jest.MockedFunction<typeof sanitizeTitle>;
 
@@ -44,7 +44,7 @@ describe('MovieController', () => {
 
     it('should return 404 if no recommended movies are found', async () => {
         req.query = { mood: 'sad', primaryGenre: 'Thriller', secondaryGenre: 'Thriller', epoch: '2010' };
-        mockMovieService.getRecommendedMovies.mockResolvedValue([]);
+        mockMovieService.execute.mockResolvedValue([]);
 
         await movieController.recommendMovies(req as Request, res as Response);
 
@@ -77,9 +77,9 @@ describe('MovieController', () => {
             total_results: 1
         };
 
-        mockMovieService.getRecommendedMovies.mockResolvedValue(recommendedMovies);
+        mockMovieService.execute.mockResolvedValue(recommendedMovies);
         mockSanitizeTitle.mockReturnValue('Sanitized Movie');
-        mockMovieByTitleService.getMoviesByTitle.mockResolvedValue(detailedMovie);
+        mockMovieByTitleService.execute.mockResolvedValue(detailedMovie);
 
         await movieController.recommendMovies(req as Request, res as Response);
 
@@ -88,13 +88,14 @@ describe('MovieController', () => {
             popularity: 8.5,
             backdrop_path: '/path/to/backdrop.jpg',
             overview: 'Overview of the movie.',
+            otherMovies: []
         });
     });
 
     it('should handle errors and return appropriate status and message', async () => {
         req.query = { mood: 'sad', primaryGenre: 'Thriller', secondaryGenre: 'Thriller', epoch: '2010' };
         const error = new Error('Test error');
-        mockMovieService.getRecommendedMovies.mockRejectedValue(error);
+        mockMovieService.execute.mockRejectedValue(error);
 
         await movieController.recommendMovies(req as Request, res as Response);
 
@@ -109,7 +110,7 @@ describe('MovieController', () => {
     it('should handle errors without response and return status 500', async () => {
         req.query = { mood: 'sad', primaryGenre: 'Thriller', secondaryGenre: 'Thriller', epoch: '2010' };
         const error = new Error('Test error without response');
-        mockMovieService.getRecommendedMovies.mockRejectedValue(error);
+        mockMovieService.execute.mockRejectedValue(error);
 
         await movieController.recommendMovies(req as Request, res as Response);
 
@@ -130,7 +131,7 @@ describe('MovieController', () => {
             },
             message: 'Test error with response'
         };
-        mockMovieService.getRecommendedMovies.mockRejectedValue(error);
+        mockMovieService.execute.mockRejectedValue(error);
 
         await movieController.recommendMovies(req as Request, res as Response);
 
@@ -145,10 +146,10 @@ describe('MovieController', () => {
     it('should handle detailed movie fetch errors and return appropriate status and message', async () => {
         req.query = { mood: 'sad', primaryGenre: 'Thriller', secondaryGenre: 'Thriller', epoch: '2010' };
         const recommendedMovies = [{ title: 'Recommended Movie' }];
-        mockMovieService.getRecommendedMovies.mockResolvedValue(recommendedMovies);
+        mockMovieService.execute.mockResolvedValue(recommendedMovies);
         mockSanitizeTitle.mockReturnValue('Sanitized Movie');
         const error = new Error('Test error during detailed movie fetch');
-        mockMovieByTitleService.getMoviesByTitle.mockRejectedValue(error);
+        mockMovieByTitleService.execute.mockRejectedValue(error);
 
         await movieController.recommendMovies(req as Request, res as Response);
 

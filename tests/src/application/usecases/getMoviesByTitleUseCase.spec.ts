@@ -1,6 +1,6 @@
-import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbService';
+import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbServiceImp';
 import { AxiosInstance } from 'axios';
-import { MovieByTitleServiceImpl } from '../../../../src/application/usecases/movieByTitleServiceImp';
+import { GetMoviesByTitleUseCase } from '../../../../src/application/usecases/getMoviesByTitleUseCase';
 
 process.env.TMDB_API_TOKEN = 'mock';
 
@@ -17,7 +17,7 @@ class MockTMDBApiExternalService extends TMDBApiExternalService {
 }
 
 const mockTMDBApiService = new MockTMDBApiExternalService();
-const movieByTitleService = new MovieByTitleServiceImpl(mockTMDBApiService);
+const movieByTitleService = new GetMoviesByTitleUseCase(mockTMDBApiService);
 
 describe('MovieByTitleServiceImpl', () => {
     beforeEach(() => {
@@ -30,7 +30,7 @@ describe('MovieByTitleServiceImpl', () => {
             language: 'en-US'
         };
 
-        const movies = await movieByTitleService.getMoviesByTitle(params);
+        const movies = await movieByTitleService.execute(params);
 
         expect(movies.results).toEqual([{ title: 'Movie 1' }, { title: 'Movie 2' }]);
 

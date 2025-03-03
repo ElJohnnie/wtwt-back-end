@@ -4,6 +4,7 @@ export interface TmdbResultDTO {
     popularity: number;
     title: string;
     overview: string;
+    otherMovies: string[]
 }
 
 
