@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import { GetRecommendedMoviesInterface } from "../../interfaces/getRecommendedMoviesInterface";
-import { MovieByTitleServiceInterface } from "../../interfaces/getMoviesByTitleInterface";
+import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
 import { MainRequestSchema, MainRequestDTO } from "../../interfaces/dtos/mainRequestDTO";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
 import { TmdbResultDTO } from "../../interfaces/dtos/tmdbDTO";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
-import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
+import { TmdbResponse } from "../../interfaces/external-services/tmdbServiceInterface";
 
 export class MovieController {
     constructor(
-        private readonly _getRecommendedMovies: GetRecommendedMoviesInterface<MoviePredicted[]>,
-        private readonly _getMovieByTitle: MovieByTitleServiceInterface<TmdbResponse>
+        private readonly _getRecommendedMovies: UseCasesInterface<MoviePredicted[]>,
+        private readonly _getMovieByTitle: UseCasesInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {

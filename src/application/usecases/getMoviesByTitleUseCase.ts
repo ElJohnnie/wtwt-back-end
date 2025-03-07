@@ -1,8 +1,8 @@
-import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
+import { TmdbResponse } from "../../interfaces/external-services/tmdbServiceInterface";
 import { TMDBApiExternalService } from "../external-services/tmdbServiceImp";
-import { MovieByTitleServiceInterface } from "../../interfaces/getMoviesByTitleInterface";
+import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
 
-export class GetMoviesByTitleUseCase implements MovieByTitleServiceInterface<TmdbResponse> {
+export class GetMoviesByTitleUseCase implements UseCasesInterface<TmdbResponse> {
     constructor(private readonly tmdbApiService: TMDBApiExternalService) {}
 
     async execute(params: {
