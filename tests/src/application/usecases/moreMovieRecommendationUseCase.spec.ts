@@ -1,6 +1,6 @@
 import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbServiceImp';
 import { MoreMoviesRecommendationUseCase } from '../../../../src/application/usecases/moreMovieRecommendationUseCase';
-import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
+import { TmdbResponse } from '../../../../src/interfaces/dtos/TmdbResponseDTO';
 
 jest.mock('../../../../src/application/external-services/tmdbServiceImp');
 

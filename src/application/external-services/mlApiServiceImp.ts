@@ -1,4 +1,4 @@
-import { MLApiService } from "../../interfaces/mlApiServiceInterface";
+import { MLApiService } from "../../interfaces/external-services/mlApiServiceInterface";
 import { AxiosInstance } from 'axios';
 import { AxiosClient } from "../../infrastructure/axios/axiosClient";
 import { MoviePredicted, PredictionResponse } from "../../interfaces/dtos/mlServiceDTO";

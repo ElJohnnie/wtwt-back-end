@@ -1,16 +1,14 @@
 import { Request, Response } from "express";
-import { GetRecommendedMoviesInterface } from "../../interfaces/getRecommendedMoviesInterface";
-import { MovieByTitleServiceInterface } from "../../interfaces/getMoviesByTitleInterface";
+import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
 import { MainRequestSchema, MainRequestDTO } from "../../interfaces/dtos/mainRequestDTO";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
-import { TmdbResultDTO } from "../../interfaces/dtos/tmdbDTO";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
-import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
+import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 
 export class MovieController {
     constructor(
-        private readonly _getRecommendedMovies: GetRecommendedMoviesInterface<MoviePredicted[]>,
-        private readonly _getMovieByTitle: MovieByTitleServiceInterface<TmdbResponse>
+        private readonly _getRecommendedMovies: UseCasesInterface<MoviePredicted[]>,
+        private readonly _getMovieByTitle: UseCasesInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
@@ -35,7 +33,7 @@ export class MovieController {
                 language: 'pt-br'
             });
 
-            const result: TmdbResultDTO = {
+            const resultDTO = {
                 backdrop_path: detailedFirstMovie.results[0].backdrop_path,
                 popularity: detailedFirstMovie.results[0].vote_average,
                 title: detailedFirstMovie.results[0].title,
@@ -43,7 +41,7 @@ export class MovieController {
                 otherMovies: recommendedMovies.slice(1, 10).map(movie => movie.title)
             };
 
-            res.json(result);
+            res.json(resultDTO);
         } catch (error) {
             const status = error.response ? error.response.status : 500;
             const errorResponse = {

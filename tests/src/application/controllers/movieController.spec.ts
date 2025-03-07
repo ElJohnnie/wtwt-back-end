@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { MovieController } from '../../../../src/application/controllers/movieController';
 import { sanitizeTitle } from '../../../../src/utils/sanitizeTitle';
-import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
+import { TmdbResponse } from '../../../../src/interfaces/dtos/TmdbResponseDTO';
 
 jest.mock('../../../../src/utils/sanitizeTitle');
 

@@ -1,9 +1,9 @@
 import { MainRequestDTO } from "../../interfaces/dtos/mainRequestDTO";
-import { GetRecommendedMoviesInterface } from "../../interfaces/getRecommendedMoviesInterface";
-import { MLApiService } from "../../interfaces/mlApiServiceInterface";
+import { MLApiService } from "../../interfaces/external-services/mlApiServiceInterface";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
+import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
 
-export class GetRecommendedMoviesUseCase implements GetRecommendedMoviesInterface<MoviePredicted[]> {
+export class GetRecommendedMoviesUseCase implements UseCasesInterface<MoviePredicted[]> {
     constructor(
         private readonly movieApiService: MLApiService<MoviePredicted[]>
     ) {}

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { MoreRecommendationsController } from '../../../../src/application/controllers/moreMoviesRecomendationController';
-import { MoreMoviesRecommendationsInterface } from '../../../../src/interfaces/moreMoviesRecommendationInterface';
-import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
+import { UseCasesInterface } from '../../../../src/interfaces/usecases/useCasesInterface';
+import { TmdbResponse } from '../../../../src/interfaces/dtos/TmdbResponseDTO';
 
-const mockMoreMoviesRecommendation: MoreMoviesRecommendationsInterface<TmdbResponse> = {
+const mockMoreMoviesRecommendation: UseCasesInterface<TmdbResponse> = {
     execute: jest.fn()
 };
 

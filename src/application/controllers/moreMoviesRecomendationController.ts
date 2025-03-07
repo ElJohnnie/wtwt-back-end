@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { MoreMoviesRecommendationsInterface } from "../../interfaces/moreMoviesRecommendationInterface";
-import { TmdbResponse } from "../../interfaces/tmdbServiceInterface";
+import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
+import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 
 export class MoreRecommendationsController {
     constructor(
-        private readonly _moreMoviesRecommendation: MoreMoviesRecommendationsInterface<TmdbResponse>
+        private readonly _moreMoviesRecommendation: UseCasesInterface<TmdbResponse>
     ) {}
 
     async recommendMovies(req: Request, res: Response) {
