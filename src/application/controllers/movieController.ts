@@ -11,7 +11,7 @@ export class MovieController {
         private readonly _getMovieByTitle: UseCasesInterface<TmdbResponse>
     ) {}
 
-    async recommendMovies(req: Request, res: Response) {
+    async command(req: Request, res: Response) {
         try {
 
             const parsedData = MainRequestSchema.safeParse(req.query);

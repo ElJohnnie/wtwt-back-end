@@ -44,7 +44,7 @@ describe('MoreRecommendationsController', () => {
 
         (mockMoreMoviesRecommendation.execute as jest.Mock).mockResolvedValue(mockResponse);
 
-        await moreRecommendationsController.recommendMovies(req as Request, res as Response);
+        await moreRecommendationsController.command(req as Request, res as Response);
 
         expect(res.json).toHaveBeenCalledWith(mockResponse);
     });
@@ -55,7 +55,7 @@ describe('MoreRecommendationsController', () => {
         const error = new Error('Test error');
         (mockMoreMoviesRecommendation.execute as jest.Mock).mockRejectedValue(error);
 
-        await moreRecommendationsController.recommendMovies(req as Request, res as Response);
+        await moreRecommendationsController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
@@ -77,7 +77,7 @@ describe('MoreRecommendationsController', () => {
         };
         (mockMoreMoviesRecommendation.execute as jest.Mock).mockRejectedValue(error);
 
-        await moreRecommendationsController.recommendMovies(req as Request, res as Response);
+        await moreRecommendationsController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({

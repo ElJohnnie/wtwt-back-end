@@ -34,7 +34,7 @@ describe('MovieController', () => {
     it('should return 400 if data is invalid', async () => {
         req.query = { invalid: 'data' };
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
@@ -46,7 +46,7 @@ describe('MovieController', () => {
         req.query = { mood: 'sad', primaryGenre: 'Thriller', secondaryGenre: 'Thriller', epoch: '2010' };
         mockMovieService.execute.mockResolvedValue([]);
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({ error: "Nenhum filme recomendado encontrado" });
@@ -81,7 +81,7 @@ describe('MovieController', () => {
         mockSanitizeTitle.mockReturnValue('Sanitized Movie');
         mockMovieByTitleService.execute.mockResolvedValue(detailedMovie);
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.json).toHaveBeenCalledWith({
             title: 'Detailed Movie',
@@ -97,7 +97,7 @@ describe('MovieController', () => {
         const error = new Error('Test error');
         mockMovieService.execute.mockRejectedValue(error);
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
@@ -112,7 +112,7 @@ describe('MovieController', () => {
         const error = new Error('Test error without response');
         mockMovieService.execute.mockRejectedValue(error);
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
@@ -133,7 +133,7 @@ describe('MovieController', () => {
         };
         mockMovieService.execute.mockRejectedValue(error);
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({
@@ -151,7 +151,7 @@ describe('MovieController', () => {
         const error = new Error('Test error during detailed movie fetch');
         mockMovieByTitleService.execute.mockRejectedValue(error);
 
-        await movieController.recommendMovies(req as Request, res as Response);
+        await movieController.command(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({

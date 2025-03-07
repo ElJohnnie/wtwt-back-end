@@ -7,7 +7,7 @@ export class MoreRecommendationsController {
         private readonly _moreMoviesRecommendation: UseCasesInterface<TmdbResponse>
     ) {}
 
-    async recommendMovies(req: Request, res: Response) {
+    async command(req: Request, res: Response) {
         try {
             const query = req.query.movies as string;
 

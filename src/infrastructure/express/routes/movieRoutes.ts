@@ -7,25 +7,20 @@ import { GetMoviesByTitleUseCase } from "../../../application/usecases/getMovies
 import { MoreRecommendationsController } from '../../../application/controllers/moreMoviesRecomendationController';
 import { MoreMoviesRecommendationUseCase } from "../../../application/usecases/moreMovieRecommendationUseCase";
 
-
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    const movieApiService = new MLApiServiceImp();
-    const recommendedMovie = new GetRecommendedMoviesUseCase(movieApiService);
-    const externalTMDBAPIService = new TMDBApiExternalService();
-    const getMoviesByTitle = new GetMoviesByTitleUseCase(externalTMDBAPIService);
-    const movieController = new MovieController(recommendedMovie, getMoviesByTitle);
+const movieApiService = new MLApiServiceImp();
+const recommendedMovie = new GetRecommendedMoviesUseCase(movieApiService);
+const externalTMDBAPIService = new TMDBApiExternalService();
+const getMoviesByTitle = new GetMoviesByTitleUseCase(externalTMDBAPIService);
+const moreMoviesRecommendation = new MoreMoviesRecommendationUseCase(externalTMDBAPIService);
 
-    movieController.recommendMovies(req, res);
+router.get("/", (req, res) => {
+    new MovieController(recommendedMovie, getMoviesByTitle).command(req, res);
 });
 
 router.get("/more-recommendations", (req, res) => {
-    const externalTMDBAPIService = new TMDBApiExternalService();
-    const moreMoviesRecommendation = new MoreMoviesRecommendationUseCase(externalTMDBAPIService);
-    const moreRecommendationsController = new MoreRecommendationsController(moreMoviesRecommendation);
-
-    moreRecommendationsController.recommendMovies(req, res);
+    new MoreRecommendationsController(moreMoviesRecommendation).command(req, res);
 });
 
 export default router;

@@ -34,7 +34,7 @@ const app = express();
 app.use('/movies', movieRouter);
 
 describe('Movie router', () => {
-    it('should trigger the recommendMovies route', async () => {
+    it('should trigger the command route', async () => {
         (MLApiServiceImp as jest.Mock).mockImplementation(() => ({
             triggerML: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])
         }));
@@ -52,7 +52,7 @@ describe('Movie router', () => {
         }));
 
         (MovieController as jest.Mock).mockImplementation(() => ({
-            recommendMovies: (req, res) => res.json([{ title: 'Movie 1' }, { title: 'Movie 2' }])
+            command: (req, res) => res.json([{ title: 'Movie 1' }, { title: 'Movie 2' }])
         }));
 
         const response = await request(app)
@@ -78,7 +78,7 @@ describe('Movie router', () => {
         }));
 
         (MoreRecommendationsController as jest.Mock).mockImplementation(() => ({
-            recommendMovies: (req, res) => res.json([{ title: 'Found Movie 1' }, { title: 'Found Movie 2' }])
+            command: (req, res) => res.json([{ title: 'Found Movie 1' }, { title: 'Found Movie 2' }])
         }));
 
         const response = await request(app)
@@ -101,7 +101,7 @@ describe('Movie router', () => {
         }));
 
         (MoreRecommendationsController as jest.Mock).mockImplementation(() => ({
-            recommendMovies: (req, res) => res.json([{ title: 'Found Movie 1' }, { title: 'Found Movie 2' }])
+            command: (req, res) => res.json([{ title: 'Found Movie 1' }, { title: 'Found Movie 2' }])
         }));
 
         const response = await request(app)
@@ -124,7 +124,7 @@ describe('Movie router', () => {
         }));
 
         (MoreRecommendationsController as jest.Mock).mockImplementation(() => ({
-            recommendMovies: (req, res) => res.status(500).json({ error: 'TMDB API Error' })
+            command: (req, res) => res.status(500).json({ error: 'TMDB API Error' })
         }));
 
         const response = await request(app)
