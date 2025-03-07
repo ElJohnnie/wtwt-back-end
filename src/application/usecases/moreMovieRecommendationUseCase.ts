@@ -1,5 +1,5 @@
 import { TMDBApiExternalService } from "../external-services/tmdbServiceImp";
-import { TmdbResponse } from "../../interfaces/external-services/tmdbServiceInterface";
+import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
 
 export class MoreMoviesRecommendationUseCase implements UseCasesInterface<TmdbResponse> {

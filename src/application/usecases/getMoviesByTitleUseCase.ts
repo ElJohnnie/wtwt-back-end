@@ -1,4 +1,4 @@
-import { TmdbResponse } from "../../interfaces/external-services/tmdbServiceInterface";
+import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 import { TMDBApiExternalService } from "../external-services/tmdbServiceImp";
 import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
 

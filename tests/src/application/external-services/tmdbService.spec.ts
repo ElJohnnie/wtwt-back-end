@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { TMDBApiExternalService } from '../../../../src/application/external-services/tmdbServiceImp';
-import { TmdbResponse } from '../../../../src/interfaces/tmdbServiceInterface';
+import { TmdbResponse } from '../../../../src/interfaces/dtos/TmdbResponseDTO';
 
 process.env.TMDB_API_TOKEN = 'mock';
 

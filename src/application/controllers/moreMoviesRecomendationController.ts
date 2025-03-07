@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
-import { TmdbResponse } from "../../interfaces/external-services/tmdbServiceInterface";
+import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 
 export class MoreRecommendationsController {
     constructor(
