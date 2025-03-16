@@ -4,10 +4,16 @@ import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
+import { Resource } from '@opentelemetry/resources';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
-const provider = new NodeTracerProvider();
+const provider = new NodeTracerProvider({
+  resource: new Resource({
+    [SemanticResourceAttributes.SERVICE_NAME]: 'what-to-whatch-tonight'
+  })
+});
 
 const jaegerExporter = new JaegerExporter({
   endpoint: process.env.JAEGER_ENDPOINT || 'http://jaeger:14268/api/traces'
