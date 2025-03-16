@@ -1,8 +1,8 @@
 import { TMDBApiExternalService } from "../external-services/tmdbServiceImp";
 import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
-import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
+import { IUseCases } from "../../interfaces/usecases/IuseCases";
 
-export class MoreMoviesRecommendationUseCase implements UseCasesInterface<TmdbResponse> {
+export class MoreMoviesRecommendationUseCase implements IUseCases<TmdbResponse> {
     constructor(private readonly tmdbApiService: TMDBApiExternalService) {}
 
     async execute(params: {
@@ -17,7 +17,7 @@ export class MoreMoviesRecommendationUseCase implements UseCasesInterface<TmdbRe
         let allResults: TmdbResponse['results'] = [];
 
         for (const title of params.query) {
-            const response: TmdbResponse = await this.tmdbApiService.getMoviesByTitle({
+            const response: TmdbResponse = await this.tmdbApiService.command({
                 query: title,
             });
             allResults = allResults.concat(response.results);

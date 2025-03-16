@@ -1,3 +1,3 @@
-export interface UseCasesInterface<T> {
+export interface IUseCases<T> {
     execute(data: unknown): Promise<T>;
 }

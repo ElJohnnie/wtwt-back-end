@@ -1,26 +1,28 @@
-
-import axios from 'axios';
 import { MLApiServiceImp } from '../../../../src/application/external-services/mlApiServiceImp';
-import { AxiosClient } from '../../../../src/infrastructure/axios/axiosClient';
+import { AxiosAdapter } from '../../../../src/infrastructure/adapters/axiosAdapter';
 import { MainRequestDTO } from '../../../../src/interfaces/dtos/mainRequestDTO';
 
-process.env.ML_API_URL = 'http://mockapi.com';
-process.env.ML_API_TOKEN = 'mockToken';
+jest.mock('../../../../src/infrastructure/adapters/axiosAdapter');
 
-jest.mock('axios');
-jest.mock('../../../../src/infrastructure/axios/axiosClient');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-const mockedAxiosClient = AxiosClient as jest.Mocked<typeof AxiosClient>;
-
-describe('MovieApiServiceImp', () => {
+describe('MLApiServiceImp with Adapter', () => {
     let mlApiService: MLApiServiceImp;
+    const postMock = jest.fn();
 
     beforeEach(() => {
-        mockedAxiosClient.getInstance.mockReturnValue(mockedAxios);
+        (AxiosAdapter as jest.Mock).mockClear();
+        postMock.mockClear();
+
+        (AxiosAdapter as jest.Mock).mockImplementation(() => ({
+            post: postMock
+        }));
+
+        process.env.ML_API_URL = 'http://mockapi.com';
+        process.env.ML_API_TOKEN = 'mockToken';
+
         mlApiService = new MLApiServiceImp();
     });
 
-    it('should trigger ML API with movie parameters', async () => {
+    it('should trigger ML API with movie parameters using adapter', async () => {
         const movieParams: MainRequestDTO = {
             mood: 'happy',
             primaryGenre: 'Action',
@@ -28,23 +30,25 @@ describe('MovieApiServiceImp', () => {
             epoch: '2020'
         };
 
-        const mockResponse = {
-            data: [
-                { title: 'Predicted Movie 1' },
-                { title: 'Predicted Movie 2' }
-            ]
-        };
+        const mockResponseData = [
+            { title: 'Predicted Movie 1' },
+            { title: 'Predicted Movie 2' }
+        ];
 
-        mockedAxios.post.mockResolvedValueOnce({ data: mockResponse });
+        const mockResponse = { data: mockResponseData };
 
-        const predictedMovies = await mlApiService.triggerML(movieParams);
+        postMock.mockResolvedValueOnce(mockResponse);
 
-        expect(predictedMovies).toEqual(mockResponse.data);
-        expect(mockedAxios.post).toHaveBeenCalledWith('/ml', {
+        const result = await mlApiService.command(movieParams);
+
+        expect(result).toEqual(mockResponseData);
+        expect(postMock).toHaveBeenCalledWith('/ml', {
             mood: movieParams.mood,
             primaryGenre: movieParams.primaryGenre,
             secondaryGenre: movieParams.secondaryGenre,
             epoch: Number(movieParams.epoch)
         });
+
+        expect(AxiosAdapter).toHaveBeenCalledWith('http://mockapi.com');
     });
 });

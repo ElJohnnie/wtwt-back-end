@@ -3,7 +3,7 @@ import { GetRecommendedMoviesUseCase } from '../../../../src/application/usecase
 
 
 const mockMovieApiService = {
-    triggerML: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])
+    command: jest.fn().mockResolvedValue([{ title: 'Movie 1' }, { title: 'Movie 2' }])
 };
 
 const mlUsecase = new GetRecommendedMoviesUseCase(mockMovieApiService);
@@ -37,7 +37,7 @@ describe('MovieServiceImpl', () => {
 
         await mlUsecase.execute(movieData);
 
-        expect(mockMovieApiService.triggerML).toHaveBeenCalledWith(movieData);
+        expect(mockMovieApiService.command).toHaveBeenCalledWith(movieData);
     });
 
     it('should process recommended movies correctly', async () => {
@@ -68,7 +68,7 @@ describe('MovieServiceImpl', () => {
     });
 
     it('should return the only movie when there is one movie', async () => {
-        mockMovieApiService.triggerML.mockResolvedValueOnce([{ title: 'Only Movie' }]);
+        mockMovieApiService.command.mockResolvedValueOnce([{ title: 'Only Movie' }]);
 
         const movieData: MainRequestDTO = {
             mood: 'neutral',

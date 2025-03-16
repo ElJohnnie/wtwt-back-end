@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
+import { IUseCases } from "../../interfaces/usecases/IuseCases";
 import { MainRequestSchema, MainRequestDTO } from "../../interfaces/dtos/mainRequestDTO";
 import { sanitizeTitle } from "../../utils/sanitizeTitle";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
@@ -7,8 +7,8 @@ import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 
 export class MovieController {
     constructor(
-        private readonly _getRecommendedMovies: UseCasesInterface<MoviePredicted[]>,
-        private readonly _getMovieByTitle: UseCasesInterface<TmdbResponse>
+        private readonly _getRecommendedMovies: IUseCases<MoviePredicted[]>,
+        private readonly _getMovieByTitle: IUseCases<TmdbResponse>
     ) {}
 
     async command(req: Request, res: Response) {
