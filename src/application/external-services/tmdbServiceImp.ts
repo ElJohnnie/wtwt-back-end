@@ -1,15 +1,18 @@
-import { AxiosInstance } from 'axios';
 import { TmdbResponse } from '../../interfaces/dtos/TmdbResponseDTO';
-import { AxiosClient } from "../../infrastructure/axios/axiosClient";
+import { IRestClient } from '../../interfaces/infrastructure/adapters/IrestClient';
+import { AxiosAdapter } from '../../infrastructure/adapters/axiosAdapter';
+import { IExternalServices } from '../../interfaces/external-services/IExternalServices';
 
-export class TMDBApiExternalService {
-    private readonly _axiosInstance: AxiosInstance;
+export class TMDBApiExternalService implements IExternalServices<TmdbResponse> {
+    private readonly restClient: IRestClient;
 
     constructor() {
-        this._axiosInstance = AxiosClient.getInstance(process.env.TMDB_API_URL);
+        const baseURL = process.env.TMDB_API_URL;
+        const token = process.env.TMDB_API_TOKEN;
+        this.restClient = new AxiosAdapter(baseURL, token);
     }
 
-    async getMoviesByTitle(params: {
+    async command(params: {
         query: string;
         include_adult?: boolean;
         language?: string;
@@ -18,7 +21,7 @@ export class TMDBApiExternalService {
         region?: string;
         year?: string;
     }): Promise<TmdbResponse> {
-        const response = await this._axiosInstance.get('/search/movie', {
+        const response = await this.restClient.get<TmdbResponse>('/search/movie', {
             params: {
                 query: params.query,
                 include_adult: params.include_adult,
@@ -29,6 +32,6 @@ export class TMDBApiExternalService {
                 year: params.year
             }
         });
-        return response.data;
+        return response;
     }
 }

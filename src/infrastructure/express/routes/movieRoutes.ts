@@ -9,17 +9,17 @@ import { MoreMoviesRecommendationUseCase } from "../../../application/usecases/m
 
 const router = express.Router();
 
-const movieApiService = new MLApiServiceImp();
-const recommendedMovie = new GetRecommendedMoviesUseCase(movieApiService);
-const externalTMDBAPIService = new TMDBApiExternalService();
-const getMoviesByTitle = new GetMoviesByTitleUseCase(externalTMDBAPIService);
-const moreMoviesRecommendation = new MoreMoviesRecommendationUseCase(externalTMDBAPIService);
-
 router.get("/", (req, res) => {
+    const movieApiService = new MLApiServiceImp();
+    const recommendedMovie = new GetRecommendedMoviesUseCase(movieApiService);
+    const externalTMDBAPIService = new TMDBApiExternalService();
+    const getMoviesByTitle = new GetMoviesByTitleUseCase(externalTMDBAPIService);
     new MovieController(recommendedMovie, getMoviesByTitle).command(req, res);
 });
 
 router.get("/more-recommendations", (req, res) => {
+    const externalTMDBAPIService = new TMDBApiExternalService();
+    const moreMoviesRecommendation = new MoreMoviesRecommendationUseCase(externalTMDBAPIService);
     new MoreRecommendationsController(moreMoviesRecommendation).command(req, res);
 });
 

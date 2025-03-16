@@ -1,7 +1,6 @@
 import request from 'supertest';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-import { Request, Response, NextFunction } from 'express';
 import movieRouter from '../../../../../src/infrastructure/express/routes/movieRoutes';
 import { MLApiServiceImp } from '../../../../../src/application/external-services/mlApiServiceImp';
 import { TMDBApiExternalService } from '../../../../../src/application/external-services/tmdbServiceImp';

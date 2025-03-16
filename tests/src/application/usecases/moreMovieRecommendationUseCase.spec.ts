@@ -14,6 +14,10 @@ describe('MoreMoviesRecommendationUseCase', () => {
         moreMoviesRecommendationUseCase = new MoreMoviesRecommendationUseCase(mockTMDBApiExternalService);
     });
 
+    afterAll(() => {
+        jest.clearAllMocks();
+      })
+
     it('should return combined results from multiple movie titles', async () => {
         const params = {
             query: ['Movie 1', 'Movie 2'],
@@ -44,7 +48,7 @@ describe('MoreMoviesRecommendationUseCase', () => {
             total_results: 1
         };
 
-        mockTMDBApiExternalService.getMoviesByTitle
+        mockTMDBApiExternalService.command
             .mockResolvedValueOnce(mockResponse1)
             .mockResolvedValueOnce(mockResponse2);
 
@@ -75,7 +79,7 @@ describe('MoreMoviesRecommendationUseCase', () => {
             language: 'en-US'
         };
 
-        mockTMDBApiExternalService.getMoviesByTitle.mockRejectedValue(new Error('TMDB API Error'));
+        mockTMDBApiExternalService.command.mockRejectedValue(new Error('TMDB API Error'));
 
         await expect(moreMoviesRecommendationUseCase.execute(params)).rejects.toThrow('TMDB API Error');
     });

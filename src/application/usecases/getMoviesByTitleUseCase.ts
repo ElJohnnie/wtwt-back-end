@@ -1,8 +1,8 @@
 import { TmdbResponse } from "../../interfaces/dtos/TmdbResponseDTO";
 import { TMDBApiExternalService } from "../external-services/tmdbServiceImp";
-import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
+import { IUseCases } from "../../interfaces/usecases/IuseCases";
 
-export class GetMoviesByTitleUseCase implements UseCasesInterface<TmdbResponse> {
+export class GetMoviesByTitleUseCase implements IUseCases<TmdbResponse> {
     constructor(private readonly tmdbApiService: TMDBApiExternalService) {}
 
     async execute(params: {
@@ -14,6 +14,6 @@ export class GetMoviesByTitleUseCase implements UseCasesInterface<TmdbResponse> 
         region?: string;
         year?: string;
     }): Promise<TmdbResponse> {
-        return this.tmdbApiService.getMoviesByTitle(params);
+        return this.tmdbApiService.command(params);
     }
 }

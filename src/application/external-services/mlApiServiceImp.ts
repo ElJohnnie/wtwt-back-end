@@ -1,26 +1,24 @@
-import { MLApiService } from "../../interfaces/external-services/mlApiServiceInterface";
-import { AxiosInstance } from 'axios';
-import { AxiosClient } from "../../infrastructure/axios/axiosClient";
+import { IRestClient } from "../../interfaces/infrastructure/adapters/IrestClient";
+import { AxiosAdapter } from "../../infrastructure/adapters/axiosAdapter";
 import { MoviePredicted, PredictionResponse } from "../../interfaces/dtos/mlServiceDTO";
+import { IExternalServices } from "../../interfaces/external-services/IExternalServices";
 
-export class MLApiServiceImp implements MLApiService<MoviePredicted[]> {
-    private readonly _axiosInstance: AxiosInstance;
+export class MLApiServiceImp implements IExternalServices<MoviePredicted[]> {
+    private readonly restClient: IRestClient;
 
     constructor() {
-        this._axiosInstance = AxiosClient.getInstance(process.env.ML_API_URL);
+        const baseURL = process.env.ML_API_URL;
+        this.restClient = new AxiosAdapter(baseURL);
     }
 
-    async triggerML(params): Promise<MoviePredicted[]> {
-
-        const response = await this._axiosInstance.post<PredictionResponse>('/ml', {
+    async command(params): Promise<MoviePredicted[]> {
+        const response = await this.restClient.post<PredictionResponse>('/ml', {
             mood: params.mood,
             primaryGenre: params.primaryGenre,
             secondaryGenre: params.secondaryGenre,
             epoch: parseInt(params.epoch)
         });
 
-        const { data } = response;
-
-        return data.data;
+        return response.data;
     }
 }

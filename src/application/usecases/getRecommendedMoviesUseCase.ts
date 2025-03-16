@@ -1,15 +1,15 @@
 import { MainRequestDTO } from "../../interfaces/dtos/mainRequestDTO";
-import { MLApiService } from "../../interfaces/external-services/mlApiServiceInterface";
+import { IExternalServices } from "../../interfaces/external-services/IExternalServices";
 import { MoviePredicted } from '../../interfaces/dtos/mlServiceDTO';
-import { UseCasesInterface } from "../../interfaces/usecases/useCasesInterface";
+import { IUseCases } from "../../interfaces/usecases/IuseCases";
 
-export class GetRecommendedMoviesUseCase implements UseCasesInterface<MoviePredicted[]> {
+export class GetRecommendedMoviesUseCase implements IUseCases<MoviePredicted[]> {
     constructor(
-        private readonly movieApiService: MLApiService<MoviePredicted[]>
+        private readonly movieApiService: IExternalServices<MoviePredicted[]>
     ) {}
 
     async execute(movieData: MainRequestDTO) {
-        const recommendedMovies = await this.movieApiService.triggerML(movieData);
+        const recommendedMovies = await this.movieApiService.command(movieData);
         const processedMovies: MoviePredicted[] = this.processRecommendedMovies(recommendedMovies);
         return processedMovies;
     }

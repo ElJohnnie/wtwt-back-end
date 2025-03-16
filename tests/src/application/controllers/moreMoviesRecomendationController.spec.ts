@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { MoreRecommendationsController } from '../../../../src/application/controllers/moreMoviesRecomendationController';
-import { UseCasesInterface } from '../../../../src/interfaces/usecases/useCasesInterface';
+import { IUseCases } from '../../../../src/interfaces/usecases/IuseCases';
 import { TmdbResponse } from '../../../../src/interfaces/dtos/TmdbResponseDTO';
 
-const mockMoreMoviesRecommendation: UseCasesInterface<TmdbResponse> = {
+const mockMoreMoviesRecommendation: IUseCases<TmdbResponse> = {
     execute: jest.fn()
 };
 
@@ -22,6 +22,10 @@ describe('MoreRecommendationsController', () => {
             json: jest.fn()
         };
     });
+
+    afterAll(() => {
+        jest.clearAllMocks();
+      })
 
     it('should return combined results from multiple movie titles', async () => {
         req.query = { movies: 'Movie 1,Movie 2' };

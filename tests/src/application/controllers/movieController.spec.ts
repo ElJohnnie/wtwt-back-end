@@ -31,6 +31,10 @@ describe('MovieController', () => {
         };
     });
 
+    afterAll(() => {
+        jest.clearAllMocks();
+      })
+
     it('should return 400 if data is invalid', async () => {
         req.query = { invalid: 'data' };
 
