@@ -14,38 +14,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18.20.3'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.20.3'
 
-    - name: Install dependencies
-      run: npm install --legacy-peer-deps
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
-    - name: Run lint
-      run: npm run lint
+      - name: Run lint
+        run: npm run lint
 
-    - name: Run unit test
-      run: npm run test:unit
+      - name: Run unit test
+        run: npm run test:unit
 
-    - name: Run build
-      run: npm run build
+      - name: Run build
+        run: npm run build
 
-    - name: Bump version and push tag
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      id: bump_version
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        npm version patch -m "ci: bump version to %s"
-        git push --follow-tags
+  bump-version:
+    runs-on: ubuntu-latest
 
-    - name: Push changes
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.20.3'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Bump version and push tag
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        id: bump_version
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          npm version patch -m "ci: bump version to %s"
+          git push --follow-tags
+
+      - name: Push changes
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
