@@ -1,6 +1,6 @@
 import './infrastructure/tracing/tracing';
 
-import app from "./infrastructure/express/server";
+import app from "./infrastructure/server";
 
 const PORT = process.env.PORT || 3000;
 
