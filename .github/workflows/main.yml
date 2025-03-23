@@ -33,3 +33,17 @@ jobs:
 
     - name: Run build
       run: npm run build
+
+    - name: Bump version and push tag
+      id: bump_version
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        npm version patch -m "ci: bump version to %s"
+        git push --follow-tags
+
+    - name: Push changes
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
