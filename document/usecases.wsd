@@ -1,0 +1,12 @@
+@startuml
+actor User
+
+rectangle "What to Watch Tonight" {
+    usecase "Get Recommended Movies" as UC_GetRecommendedMovies
+    usecase "Get More Movie Recommendations" as UC_GetMoreRecommendations
+}
+
+User -> UC_GetRecommendedMovies
+User -> UC_GetMoreRecommendations
+
+@enduml

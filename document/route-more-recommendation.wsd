@@ -1,0 +1,21 @@
+@startuml
+actor User
+participant "Express Router" as Router
+participant "MoreRecommendationsController" as MoreController
+participant "MoreMoviesRecommendationUseCase" as MoreMoviesUseCase
+participant "TMDBApiExternalService" as TMDBApiService
+participant "AxiosAdapter" as Axios
+
+User -> Router: GET /movies/more-recommendations
+Router -> MoreController: command(req, res)
+MoreController -> MoreMoviesUseCase: execute({ query: titles })
+loop for each title in query
+    MoreMoviesUseCase -> TMDBApiService: command({ query: title })
+    TMDBApiService -> Axios: get('/search/movie', { query: title })
+    Axios -> TMDBApiService: response
+    TMDBApiService -> MoreMoviesUseCase: response
+end
+MoreMoviesUseCase -> MoreController: allResults
+MoreController -> Router: res.json(moreResultsMovies)
+Router -> User: moreResultsMovies
+@enduml
