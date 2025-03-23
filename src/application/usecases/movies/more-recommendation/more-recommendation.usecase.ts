@@ -12,8 +12,9 @@ export class MoreMoviesRecommendationUseCase {
             const response: OutputMoreRecommendationDTO = await this.tmdbApiService.command({
                 query: title,
                 language: params.language,
+
             });
-            allResults = allResults.concat(response.results);
+            allResults = allResults.concat(response.results[0]);
         }
 
         return allResults;
