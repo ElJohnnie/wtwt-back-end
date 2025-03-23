@@ -12,7 +12,7 @@ export class MoreRecommendationsController {
             const query = req.query.movies as string;
 
             const moreResultsMovies = await this._moreMoviesRecommendation.execute({
-                query: query.split(','),
+                query: query,
                 language: 'pt-br'
             });
 

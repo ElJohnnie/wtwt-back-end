@@ -9,7 +9,6 @@ import { MoreMoviesRecommendationUseCase } from "../../application/usecases/movi
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    console.log(req)
     const recommendedMovie = new GetRecommendedMoviesUseCase(new RecommendationAlgorithm(), new TMDBExternalService());
     new MovieController(recommendedMovie).command(req, res);
 });
