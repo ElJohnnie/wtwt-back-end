@@ -1,4 +1,4 @@
-name: Quality gate
+name: Merge main
 
 on:
   push:
@@ -53,8 +53,8 @@ jobs:
       - name: Bump version and push tag
         id: bump_version
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           npm version patch -m "ci: bump version to %s"
           git push --follow-tags
 
