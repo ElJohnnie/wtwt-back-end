@@ -1,0 +1,27 @@
+@startuml
+actor User
+participant "Express Router" as Router
+participant "MovieController" as Controller
+participant "GetRecommendedMoviesUseCase" as GetRecommendedMovies
+participant "MLApiServiceImp" as MLApiService
+participant "GetMoviesByTitleUseCase" as GetMoviesByTitle
+participant "TMDBApiExternalService" as TMDBApiService
+participant "AxiosAdapter" as Axios
+
+User -> Router: GET /movies
+Router -> Controller: command(req, res)
+Controller -> GetRecommendedMovies: execute(data)
+GetRecommendedMovies -> MLApiService: command(movieData)
+MLApiService -> Axios: post('/ml', movieData)
+Axios -> MLApiService: response
+MLApiService -> GetRecommendedMovies: recommendedMovies
+GetRecommendedMovies -> Controller: processedMovies
+Controller -> GetMoviesByTitle: execute({ query: movie })
+GetMoviesByTitle -> TMDBApiService: command({ query: movie })
+TMDBApiService -> Axios: get('/search/movie', { query: movie })
+Axios -> TMDBApiService: response
+TMDBApiService -> GetMoviesByTitle: detailedFirstMovie
+GetMoviesByTitle -> Controller: detailedFirstMovie
+Controller -> Router: res.json(resultDTO)
+Router -> User: resultDTO
+@enduml

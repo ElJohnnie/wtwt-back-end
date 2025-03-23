@@ -1,0 +1,82 @@
+@startuml
+' ====== Interfaces ======
+interface IUseCases {
+    + execute(data: unknown): Promise<any>
+}
+
+interface IExternalServices {
+    + command(data: unknown): Promise<any>
+}
+
+interface IRestClient {
+    + get(url: string, config?: any): Promise<any>
+    + post(url: string, data?: any, config?: any): Promise<any>
+}
+
+' ====== Adapters ======
+class AxiosAdapter {
+  - axiosInstance: AxiosInstance
+  + get(url: string, config?: any): Promise<any>
+  + post(url: string, data?: any, config?: any): Promise<any>
+}
+IRestClient <|-- AxiosAdapter
+
+' ====== External Services ======
+class MLApiServiceImp {
+  - restClient: IRestClient
+  + command(params: MainRequestDTO): Promise<MoviePredicted[]>
+}
+IExternalServices <|-- MLApiServiceImp
+
+class TMDBApiExternalService {
+  - restClient: IRestClient
+  + command(params: any): Promise<TmdbResponse>
+}
+IExternalServices <|-- TMDBApiExternalService
+
+' ====== Use Cases ======
+class GetRecommendedMoviesUseCase {
+  - movieApiService: IExternalServices
+  + execute(movieData: MainRequestDTO): Promise<MoviePredicted[]>
+  - processRecommendedMovies(recommendedMovies: any): MoviePredicted[]
+}
+IUseCases <|-- GetRecommendedMoviesUseCase
+
+class GetMoviesByTitleUseCase {
+  - tmdbApiService: TMDBApiExternalService
+  + execute(params: any): Promise<TmdbResponse>
+}
+IUseCases <|-- GetMoviesByTitleUseCase
+
+class MoreMoviesRecommendationUseCase {
+  - tmdbApiService: TMDBApiExternalService
+  + execute(params: any): Promise<TmdbResponse>
+}
+IUseCases <|-- MoreMoviesRecommendationUseCase
+
+' ====== Controllers ======
+class MovieController {
+  - _getRecommendedMovies: IUseCases
+  - _getMovieByTitle: IUseCases
+  + command(req: Request, res: Response): Promise<void>
+}
+
+class MoreRecommendationsController {
+  - _moreMoviesRecommendation: IUseCases
+  + command(req: Request, res: Response): Promise<void>
+}
+
+' ====== Relationships ======
+MovieController ..> GetRecommendedMoviesUseCase : uses
+MovieController ..> GetMoviesByTitleUseCase : uses
+MoreRecommendationsController ..> MoreMoviesRecommendationUseCase : uses
+TMDBApiExternalService ..> AxiosAdapter : uses
+MLApiServiceImp ..> AxiosAdapter : uses
+
+' ====== Utility ======
+package "Utils" {
+  class sanitizeTitle {
+    + sanitizeTitle(title: string): string
+  }
+}
+@enduml
