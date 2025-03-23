@@ -1,4 +1,4 @@
-import './infrastructure/tracing/tracing';
+// import './infrastructure/tracing/tracing';
 
 import app from "./infrastructure/server";
 
