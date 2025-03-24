@@ -8,17 +8,15 @@ export class MoreMoviesRecommendationUseCase {
     async execute(params: InputMoreRecommendationDTO): Promise<OutputMoreRecommendationDTO['results']> {
         let allResults: OutputMoreRecommendationDTO['results'] = [];
 
-        const limitedQuery = params.query.slice(0, 12);
-
-        for (const title of limitedQuery) {
+        for (const title of params.query) {
             const response: OutputMoreRecommendationDTO = await this.tmdbApiService.command({
                 query: title,
-                include_adult: params.include_adult,
                 language: params.language,
+                include_adult: false,
             });
-            allResults = allResults.concat(response.results);
+            allResults = allResults.concat(response.results[0]);
         }
 
-        return allResults.slice(0, 12);
+        return allResults;
     }
 }
