@@ -3,8 +3,9 @@ import { OutputRecommendationAlgorithm } from '../../../external-services/recomm
 import { OutputTMDB } from "../../../external-services/the-movie-database/the-movie-database.dto";
 import { sanitizeTitle } from "../../../../utils/sanitize-title.util";
 import { InputGetRecommendedMoviesDTO, OutputGetRecommendedMoviesDTO } from "./get-recommended.movies.dto";
+import { IUseCases } from '../../../../@shared/usecases/usecases.interface';
 
-export class GetRecommendedMoviesUseCase {
+export class GetRecommendedMoviesUseCase implements IUseCases<OutputGetRecommendedMoviesDTO> {
     constructor(
         private readonly mlApiServiceImp: IExternalServices<OutputRecommendationAlgorithm[]>,
         private readonly tmdbServiceImp: IExternalServices<OutputTMDB>
