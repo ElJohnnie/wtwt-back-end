@@ -2,9 +2,8 @@
 
 import app from "./infrastructure/server";
 
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
-const HOST = process.env.HOST || "localhost";
+const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, HOST, () => {
-    console.log(`Servidor rodando em http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
