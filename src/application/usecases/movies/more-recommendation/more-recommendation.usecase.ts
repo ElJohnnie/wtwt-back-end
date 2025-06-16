@@ -1,8 +1,9 @@
 import { TMDBExternalService } from "../../../external-services/the-movie-database/the-movie-database.external-service";
 import { OutputMoreRecommendationDTO } from "./more-recommendation.dto";
 import { InputMoreRecommendationDTO } from "./more-recommendation.dto";
+import { IUseCases } from '../../../../@shared/usecases/usecases.interface';
 
-export class MoreMoviesRecommendationUseCase {
+export class MoreMoviesRecommendationUseCase implements IUseCases<OutputMoreRecommendationDTO['results']> {
     constructor(private readonly tmdbApiService: TMDBExternalService) {}
 
     async execute(params: InputMoreRecommendationDTO): Promise<OutputMoreRecommendationDTO['results']> {
